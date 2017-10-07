@@ -18,3 +18,8 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
 **PEREQUISITES AND INSTALLATIONS**
 
 Knowledge of HTML, CSS
+
+
+ **AUTHOR**
+
+   Akinyomi Omolewa
