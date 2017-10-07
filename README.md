@@ -20,6 +20,9 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
 Knowledge of HTML, CSS
 
 
+**Status of project:** Work in progress
+
+   
  **AUTHOR**
 
    Akinyomi Omolewa
