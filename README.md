@@ -43,9 +43,9 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
    
  *   Endpoints to borrow and return a book
  
-	POST: /api/users/<userId>/borrow/<bookId>
+        POST: /api/users/<userId>/borrow/<bookId>
 	
-	POST: /api/users/<userId>/return/<bookId>
+        POST: /api/users/<userId>/return/<bookId>
    
  *   Endpoints to accept/reject a request to borrow and return a book
  
@@ -55,7 +55,7 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
    
  *   Endpoint to review a book
  
-     	POST: /api/users/<userId>/review/<bookId>
+        POST: /api/users/<userId>/review/<bookId>
    
  *   Endpoint to mark a book as favorite
  
