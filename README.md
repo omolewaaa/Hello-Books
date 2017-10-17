@@ -49,9 +49,9 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
    
  *   Endpoints to accept/reject a request to borrow and return a book
  
-	PUT: /api/users/<userId>/borrow/<bookId>
+    PUT: /api/users/<userId>/borrow/<bookId>
 	
-	PUT: /api/users/<userId>/return/<bookId>
+    PUT: /api/users/<userId>/return/<bookId>
    
  *   Endpoint to review a book
  
