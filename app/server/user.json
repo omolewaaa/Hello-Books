@@ -2,16 +2,19 @@
 {
     "userId": 1,
     "username": "Seun",
-    "email": "seun@gmail.com"
+    "email": "seun@gmail.com",
+    "favorites": "Rebirth, Benita, Liliana"
   },
   {
     "userId": 2,
     "username": "ewa",
-    "email": "ewa@gmail.com"
+    "email": "ewa@gmail.com",
+    "favorites": "Benita, Liliana"
   },
   {
     "userId": 3,
     "name": "victor",
-    "email": "victor@gmail.com"
+    "email": "victor@gmail.com",
+    "favorites": "Jenna, Benita, Liliana"
   }
 ]

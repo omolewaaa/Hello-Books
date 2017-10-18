@@ -1,6 +1,6 @@
-const users = require('../models').users;
+const users = require('../user');
 const jwt = require('jsonwebtoken');
-const groups = require('../models').groups;
+const books = require('../book');
 
 module.exports = (req, res, next) => {
  const token = (req.body['x-access-token'] ) || (req.headers['x-access-token'] ) || (req.query['x-access-token'] )

@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 //const jwt    = require('jsonwebtoken');
-const books = require('../info');
+const books = require('../book');
 const user = require('../user');
 
 
@@ -160,10 +160,39 @@ app.post('/api/users/:userId/review/:bookId', (req, res)=> {
     
     bookExist.review = item
     //books.push(item)
-            res.status(200).json({message:'Thanks for you review', "review": bookExist});
+            res.status(200).json({message:'Thanks for you review', "book": bookExist});
         });
 
 
+app.post('/api/users/:userId/fav/:bookId', (req, res)=> {
+  const userId = parseInt(req.params.userId, 10);
+  const userExist = user.filter(r => r.userId === userId)[0];
+  const bookId = parseInt(req.params.bookId, 10)
+  const bookExist = books.filter(r => r.bookId === bookId)[0];
+});
+
+
+app.get('/api/users/:userId/favbooks', (req, res)=>{
+  const userId = parseInt(req.params.userId, 10);
+  const userExist = user.filter(r => r.userId === userId)[0];
+    if (!userExist) {
+        res.status(404).json("user not found")
+      }
+    else {
+      let fav = [];
+      fav = userExist.favorites
+      //const favoritebooks = userExist.favorites;
+       res.json(fav)
+    }
+});
+
+
+ app.get('/api/books/:sorted', (req, res)=> {
+  
+  const sorted = [];
+  sorted = books.sort((a,b) => b.upvotes - a.upvotes);
+  res.json({"books": sorted})
+ });
 
 
 };
