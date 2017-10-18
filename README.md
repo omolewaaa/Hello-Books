@@ -11,6 +11,8 @@ The application also has an admin section where the admin can do things like add
 
 **Template:** This contains the user interfaces using HTML and CSS
 
+**Server:** This folder house the backend implementation of the project with NodeJS - Express using dummy data
+
 
 
 **GETTING STARTED**
@@ -20,7 +22,53 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
 
 **PEREQUISITES AND INSTALLATIONS**
 
-Knowledge of HTML, CSS
+ *    Knowledge of HTML, CSS and JavaScript
+
+ *    NodeJS installed on your system, you can check out here to download https://nodejs.org/en/download/
+
+ *    Installation of Postman for testing the API routes
+ 
+ 
+ **END POINT**
+ 
+ *   Endpoints  to add a book and modify a book
+ 
+        POST: /api/books
+	
+	PUT: /api/books/<bookId>
+	
+ *   Endpoint to get all books in the application
+ 
+	GET: /api/books
+   
+ *   Endpoints to borrow and return a book
+ 
+        POST: /api/users/<userId>/borrow/<bookId>
+	
+        POST: /api/users/<userId>/return/<bookId>
+   
+ *   Endpoints to accept/reject a request to borrow and return a book
+ 
+    PUT: /api/users/<userId>/borrow/<bookId>
+	
+    PUT: /api/users/<userId>/return/<bookId>
+   
+ *   Endpoint to review a book
+ 
+        POST: /api/users/<userId>/review/<bookId>
+   
+ *   Endpoint to mark a book as favorite
+ 
+	POST: /api/users/<userId>/fav/<bookId>
+   
+ *   Endpoint to get a user’s favorite books
+ 
+        GET: /api/users/<userId>/favbooks
+	
+ *   Endpoint to get books with the most upvotes
+ 
+        GET: /api/books?sort=upvotes&order=desc
+
 
 
 **Status of project:** Work in progress
