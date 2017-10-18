@@ -48,10 +48,7 @@ app.put('/api/books/:bookId', (req, res) => {
        exist.bookStatus = req.body.bookStatus;
       
       res.status(201).json({message:'book modified successfully', "data": exist});
-   
-
-  
-  });
+     });
 
 
 // API Endpoint to get all the books in the catalog
@@ -62,15 +59,12 @@ app.get('/api/books', (req, res)=> {
 
 //API Endpoint to borrow a book
 app.post('/api/users/:userId/borrow/:bookId', (req, res)=> {
-  //console.log(req.params)
-  //const userId = req.decoded.data.id;
+
   const userId = parseInt(req.params.userId, 10);
   const userExist = user.filter(r => r.userId === userId)[0];
  
   const bookId = parseInt(req.params.bookId, 10);
-   //var id = req.params.id;
   const bookExist = books.filter(r => r.bookId === bookId)[0];
-  //var bookStatus = books.filter(r => r.bookStatus === bookStatus)[0];
   
  
 if (!bookExist) {
@@ -124,9 +118,6 @@ app.put('/api/users/:userId/borrow/:bookId', (req, res) => {
       res.status(404).json({message:"book currently unavailable to borrow", "book": exist})
       
     }
-  
-
-  
   });
 
 //API Endpoint to accept returned book
@@ -164,7 +155,6 @@ app.post('/api/users/:userId/review/:bookId', (req, res)=> {
     }
     
     bookExist.review = item
-    //books.push(item)
             res.status(200).json({message:'Thanks for you review', "book": bookExist});
         });
 
@@ -174,6 +164,17 @@ app.post('/api/users/:userId/fav/:bookId', (req, res)=> {
   const userExist = user.filter(r => r.userId === userId)[0];
   const bookId = parseInt(req.params.bookId, 10)
   const bookExist = books.filter(r => r.bookId === bookId)[0];
+
+  if (!bookExist) {
+  res.status(404).json("This book does not exist")
+}
+else if (!userExist) {
+  res.status(404).json("user not found")
+}
+
+else {
+  res.json({ status: true, message: "Marked as favorite", "book": bookExist} )
+}
 });
 
 
