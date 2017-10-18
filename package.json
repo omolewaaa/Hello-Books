@@ -2,6 +2,9 @@
   "name": "Hello-Books",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "6.10.3"
+  },
   "scripts": {
     "start:dev": "nodemon ./app/server/bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
