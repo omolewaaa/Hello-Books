@@ -35,7 +35,7 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
  
         POST: /api/books
 	
-	PUT: /api/books/<bookId>
+	PUT: /api/books/:bookId
 	
  *   Endpoint to get all books in the application
  
@@ -43,27 +43,27 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
    
  *   Endpoints to borrow and return a book
  
-        POST: /api/users/<userId>/borrow/<bookId>
+        POST: /api/users/:userId/borrow/:bookId
 	
-        POST: /api/users/<userId>/return/<bookId>
+        POST: /api/users/:userId/return/:bookId
    
  *   Endpoints to accept/reject a request to borrow and return a book
  
-    PUT: /api/users/<userId>/borrow/<bookId>
+    PUT: /api/users/:userId/borrow/:bookId
 	
-    PUT: /api/users/<userId>/return/<bookId>
+    PUT: /api/users/:userId/return/:bookId
    
  *   Endpoint to review a book
  
-        POST: /api/users/<userId>/review/<bookId>
+        POST: /api/users/:userId/review/:bookId
    
  *   Endpoint to mark a book as favorite
  
-	POST: /api/users/<userId>/fav/<bookId>
+	POST: /api/users/:userId/fav/:bookId
    
  *   Endpoint to get a user’s favorite books
  
-        GET: /api/users/<userId>/favbooks
+        GET: /api/users/:userId/favbooks
 	
  *   Endpoint to get books with the most upvotes
  
