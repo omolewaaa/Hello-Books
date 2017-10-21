@@ -31,47 +31,47 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
  
  **END POINT**
  
- *   Endpoints  to add a book and modify a book
+ *   **Endpoints  to add a book and modify a book**
  
-        POST: /api/books
+        	POST: /api/v1/books
+		
+			PUT: /api/v1/books/:bookId
 	
-	PUT: /api/books/:bookId
+ *   **Endpoint to get all books in the application**
+ 
+		    GET: /api/v1/books
+   
+ *   **Endpoints to borrow and return a book**
+ 
+        	POST: /api/v1/users/:userId/borrow/:bookId
 	
- *   Endpoint to get all books in the application
- 
-	GET: /api/books
+        	POST: /api/v1/users/:userId/return/:bookId
    
- *   Endpoints to borrow and return a book
+ *   **Endpoints to accept/reject a request to borrow and return a book**
  
-        POST: /api/users/:userId/borrow/:bookId
+   			PUT: /api/v1/users/:userId/borrow/:bookId
 	
-        POST: /api/users/:userId/return/:bookId
+   	 		PUT: /api/v1/users/:userId/return/:bookId
    
- *   Endpoints to accept/reject a request to borrow and return a book
+ *   **Endpoint to review a book**
  
-    PUT: /api/users/:userId/borrow/:bookId
+        	POST: /api/v1/users/:userId/review/:bookId
+   
+ *   **Endpoint to mark a book as favorite**
+ 
+			POST: /api/v1/users/:userId/fav/:bookId
+   
+ *   **Endpoint to get a user’s favorite books**
+ 
+        	GET: /api/v1/users/:userId/favbooks
 	
-    PUT: /api/users/:userId/return/:bookId
-   
- *   Endpoint to review a book
+ *   **Endpoint to get books with the most upvotes**
  
-        POST: /api/users/:userId/review/:bookId
-   
- *   Endpoint to mark a book as favorite
- 
-	POST: /api/users/:userId/fav/:bookId
-   
- *   Endpoint to get a user’s favorite books
- 
-        GET: /api/users/:userId/favbooks
-	
- *   Endpoint to get books with the most upvotes
- 
-        GET: /api/books?sort=upvotes&order=desc
+        	GET: /api/v1/books/:sorted
 
 
 
-**Status of project:** Work in progress
+**Status of project:	** Work in progress
 
    
  **AUTHOR**
