@@ -33,41 +33,41 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
  
  *   Endpoints  to add a book and modify a book
  
-        POST: /api/books
+        POST: /api/v1/books
 	
-	PUT: /api/books/:bookId
+	PUT: /api/v1/books/:bookId
 	
  *   Endpoint to get all books in the application
  
-	GET: /api/books
+	GET: /api/v1/books
    
  *   Endpoints to borrow and return a book
  
-        POST: /api/users/:userId/borrow/:bookId
+        POST: /api/v1/users/:userId/borrow/:bookId
 	
-        POST: /api/users/:userId/return/:bookId
+        POST: /api/v1/users/:userId/return/:bookId
    
  *   Endpoints to accept/reject a request to borrow and return a book
  
-    PUT: /api/users/:userId/borrow/:bookId
+    PUT: /api/v1/users/:userId/borrow/:bookId
 	
-    PUT: /api/users/:userId/return/:bookId
+    PUT: /api/v1/users/:userId/return/:bookId
    
  *   Endpoint to review a book
  
-        POST: /api/users/:userId/review/:bookId
+        POST: /api/v1/users/:userId/review/:bookId
    
  *   Endpoint to mark a book as favorite
  
-	POST: /api/users/:userId/fav/:bookId
+	POST: /api/v1/users/:userId/fav/:bookId
    
  *   Endpoint to get a user’s favorite books
  
-        GET: /api/users/:userId/favbooks
+        GET: /api/v1/users/:userId/favbooks
 	
  *   Endpoint to get books with the most upvotes
  
-        GET: /api/books?sort=upvotes&order=desc
+        GET: /api/v1/books?sort=upvotes&order=desc
 
 
 
