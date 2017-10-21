@@ -196,7 +196,7 @@ app.get('/api/v1/users/:userId/favbooks', (req, res)=>{
 
 //API Endpoint to get book with highest number of upvotes in descending order
 
- app.get('/api/v1/books/:sorted=upvotes', (req, res)=> {
+ app.get('/api/v1/books/sorted', (req, res)=> {
    const sorted = [];
    var sortee
   
