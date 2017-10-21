@@ -67,7 +67,7 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
 	
  *   **Endpoint to get books with the most upvotes**
  
-        	GET: /api/v1/books?sort=upvotes&order=desc
+        	GET: /api/v1/books/:sorted
 
 
 
