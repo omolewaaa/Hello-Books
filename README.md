@@ -39,7 +39,7 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
 	
  *   Endpoint to get all books in the application
  
-		 GET: /api/v1/books
+		    GET: /api/v1/books
    
  *   Endpoints to borrow and return a book
  
