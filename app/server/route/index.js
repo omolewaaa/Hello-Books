@@ -4,7 +4,6 @@ const app = express();
 //const jwt    = require('jsonwebtoken');
 const books = require('../models/book');
 const user = require('../models/user');
- //require('../models').users;
 
 
 app.use(bodyParser.json());
@@ -197,11 +196,12 @@ app.get('/api/v1/users/:userId/favbooks', (req, res)=>{
 
 //API Endpoint to get book with highest number of upvotes in descending order
 
- app.get('/api/v1/books/:sorted', (req, res)=> {
+ app.get('/api/v1/books/:sorted=upvotes', (req, res)=> {
    const sorted = [];
+   var sortee
   
-  sorted = books.sort((a,b) => b.upvotes - a.upvotes);
-  //sorted.push(sortee);
+  sortee = books.sort((a,b) => b.upvotes - a.upvotes);
+  sorted.push(sortee);
   res.json({"books": sorted})
  });
 
