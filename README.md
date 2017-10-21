@@ -33,13 +33,13 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
  
  *   Endpoints  to add a book and modify a book
  
-        		POST: /api/v1/books
+        	POST: /api/v1/books
 		
 			PUT: /api/v1/books/:bookId
 	
  *   Endpoint to get all books in the application
  
-			GET: /api/v1/books
+		 GET: /api/v1/books
    
  *   Endpoints to borrow and return a book
  
