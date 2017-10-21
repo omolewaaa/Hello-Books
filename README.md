@@ -39,13 +39,13 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
 	
  *   Endpoint to get all books in the application
  
-		 GET: /api/v1/books
+		 	GET: /api/v1/books
    
  *   Endpoints to borrow and return a book
  
-        		POST: /api/v1/users/:userId/borrow/:bookId
+        	POST: /api/v1/users/:userId/borrow/:bookId
 	
-        		POST: /api/v1/users/:userId/return/:bookId
+        	POST: /api/v1/users/:userId/return/:bookId
    
  *   Endpoints to accept/reject a request to borrow and return a book
  
