@@ -13,7 +13,7 @@ module.exports = (app) => {
   	res.json(Books));
 
 //API Endpoint to add a book
-  app.post('/api/books', (req, res)=> {
+  app.post('/api/v1/books', (req, res)=> {
   	const item = req.body;
     item.bookId = books.length + 1;
    // if (!item.id) {
@@ -32,7 +32,7 @@ module.exports = (app) => {
   
 
   // API Endpoint to modify a book
-app.put('/api/books/:bookId', (req, res) => {
+app.put('/api/v1/books/:bookId', (req, res) => {
 
 	const bookId = parseInt(req.params.bookId, 10);
   const exist = books.filter(r => r.bookId === bookId)[0];
@@ -52,13 +52,13 @@ app.put('/api/books/:bookId', (req, res) => {
 
 
 // API Endpoint to get all the books in the catalog
-app.get('/api/books', (req, res)=> {
+app.get('/api/v1/books', (req, res)=> {
 	res.json(books);
 });
 
 
 //API Endpoint to borrow a book
-app.post('/api/users/:userId/borrow/:bookId', (req, res)=> {
+app.post('/api/v1/users/:userId/borrow/:bookId', (req, res)=> {
 
   const userId = parseInt(req.params.userId, 10);
   const userExist = user.filter(r => r.userId === userId)[0];
@@ -85,7 +85,7 @@ else {
 
  
 //API to return borrowed book
-app.post('/api/users/:userId/return/:bookId', (req, res)=> {
+app.post('/api/v1/users/:userId/return/:bookId', (req, res)=> {
   const userId = parseInt(req.params.userId, 10);
   const userExist = user.filter(users => users.userId === userId)[0];
  
@@ -100,7 +100,7 @@ app.post('/api/users/:userId/return/:bookId', (req, res)=> {
 
 
 //API Endpoint to accept/reject reqquest to borrow a book
-app.put('/api/users/:userId/borrow/:bookId', (req, res) => {
+app.put('/api/v1/users/:userId/borrow/:bookId', (req, res) => {
 
   const userId = parseInt(req.params.userId, 10);
   const userExist = user.filter(r => r.userId === userId)[0];
@@ -122,7 +122,7 @@ app.put('/api/users/:userId/borrow/:bookId', (req, res) => {
 
 //API Endpoint to accept returned book
 
-app.put('/api/users/:userId/return/:bookId', (req, res) => {
+app.put('/api/v1/users/:userId/return/:bookId', (req, res) => {
 
   const userId = parseInt(req.params.userId, 10);
  // var userExist = user.filter(r => r.userId === userId)[0];
@@ -135,7 +135,7 @@ app.put('/api/users/:userId/return/:bookId', (req, res) => {
   });
 
 //API Endpoint to review a book
-app.post('/api/users/:userId/review/:bookId', (req, res)=> {
+app.post('/api/v1/users/:userId/review/:bookId', (req, res)=> {
   const userId = parseInt(req.params.userId, 10);
   const userExist = user.filter(r => r.userId === userId)[0];
   const bookId = parseInt(req.params.bookId, 10)
@@ -159,7 +159,7 @@ app.post('/api/users/:userId/review/:bookId', (req, res)=> {
         });
 
 //API Endpoint to mark a book as favorite
-app.post('/api/users/:userId/fav/:bookId', (req, res)=> {
+app.post('/api/v1/users/:userId/fav/:bookId', (req, res)=> {
   const userId = parseInt(req.params.userId, 10);
   const userExist = user.filter(r => r.userId === userId)[0];
   const bookId = parseInt(req.params.bookId, 10)
@@ -179,7 +179,7 @@ else {
 
 
 //API Endpoint to get user's favorite books
-app.get('/api/users/:userId/favbooks', (req, res)=>{
+app.get('/api/v1/users/:userId/favbooks', (req, res)=>{
   const userId = parseInt(req.params.userId, 10);
   const userExist = user.filter(r => r.userId === userId)[0];
     if (!userExist) {
@@ -195,15 +195,19 @@ app.get('/api/users/:userId/favbooks', (req, res)=>{
 
 
 //API Endpoint to get book with highest number of upvotes in descending order
- app.get('/api/books/:sorted', (req, res)=> {
+
+ app.get('/api/v1/books/:sorted', (req, res)=> {
+   const sorted = [];
   
-  const sorted = [];
   sorted = books.sort((a,b) => b.upvotes - a.upvotes);
+  //sorted.push(sortee);
   res.json({"books": sorted})
  });
 
 
 };
+
+
 
 
 
