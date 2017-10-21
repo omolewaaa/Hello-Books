@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 // Set up the express app
 const app = express();
-const Books = require('./book');
+//const Books = require('./models/book');
 
 // Log requests to the console.
 app.use(logger('dev'));
@@ -19,3 +19,5 @@ app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to Hello-Books.'}));
 
 module.exports = app;
+
+

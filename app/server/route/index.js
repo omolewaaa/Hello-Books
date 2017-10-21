@@ -2,8 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 //const jwt    = require('jsonwebtoken');
-const books = require('../book');
-const user = require('../user');
+const books = require('../models/book');
+const user = require('../models/user');
+ //require('../models').users;
 
 
 app.use(bodyParser.json());
