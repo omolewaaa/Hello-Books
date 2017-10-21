@@ -55,7 +55,7 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
    
  *   Endpoint to review a book
  
-        		POST: /api/v1/users/:userId/review/:bookId
+        	POST: /api/v1/users/:userId/review/:bookId
    
  *   Endpoint to mark a book as favorite
  
@@ -63,11 +63,11 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
    
  *   Endpoint to get a user’s favorite books
  
-        		GET: /api/v1/users/:userId/favbooks
+        	GET: /api/v1/users/:userId/favbooks
 	
  *   Endpoint to get books with the most upvotes
  
-        		GET: /api/v1/books?sort=upvotes&order=desc
+        	GET: /api/v1/books?sort=upvotes&order=desc
 
 
 
