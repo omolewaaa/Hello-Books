@@ -76,7 +76,8 @@ else if (!userExist) {
 }
 
 if (bookExist && bookExist.bookStatus === "unavailable") {
-  res.status(404).json({message: "This book is currently unavailable", "user": userExist, "book": bookExist})
+  res.status(404).json({message: "This book is currently unavailable", "bookName": bookExist.bookName, 
+    "bookId": bookId, "status": bookExist.bookStatus, "username": userExist.username, "userId": userId})
 }
 else {
   res.json({ status: true, message:'enjoy the book', "bookName": bookExist.bookName, "bookId": bookId, 
@@ -119,7 +120,8 @@ app.put('/api/v1/users/:userId/borrow/:bookId', (req, res) => {
     }
     else 
       {
-      res.status(404).json({message:"book currently unavailable to borrow"})
+      res.status(404).json({message:"book currently unavailable to borrow","bookName": bookExist.bookName, 
+    "bookId": bookId, "status": bookExist.bookStatus, "Admin": userExist.username});
       
     }
   });
