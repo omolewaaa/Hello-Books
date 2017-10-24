@@ -4,6 +4,7 @@ const app = express();
 //const jwt    = require('jsonwebtoken');
 const books = require('../models/book');
 const user = require('../models/user');
+const reviews = require('../models/review');
 
 
 app.use(bodyParser.json());
@@ -78,7 +79,8 @@ if (bookExist && bookExist.bookStatus === "unavailable") {
   res.status(404).json({message: "This book is currently unavailable", "user": userExist, "book": bookExist})
 }
 else {
-  res.json({ status: true, message:'enjoy the book', "book": bookExist, "user": userExist} )
+  res.json({ status: true, message:'enjoy the book', "bookName": bookExist.bookName, "bookId": bookId, 
+    "username": userExist.username, "userId": userId} )
 }
 
   });
@@ -93,7 +95,8 @@ app.post('/api/v1/users/:userId/return/:bookId', (req, res)=> {
   const bookExist = books.filter(r => r.bookId === bookId)[0];
   
   res.json({ status: true, message:'Thanks for the return, we are sure you enjoy the book', 
-    "book": bookExist, "user": userExist} )
+    "bookName": bookExist.bookName, "bookId": bookId, 
+    "username": userExist.username, "userId": userId} )
 
 
   });
@@ -111,11 +114,12 @@ app.put('/api/v1/users/:userId/borrow/:bookId', (req, res) => {
  
     if(exist.bookStatus !== "unavailable"){
 
-      res.status(200).json({message:'Approved to borrow', "data": exist});
+      res.status(200).json({message:'Approved to borrow', "bookName": exist.bookName, "bookId": bookId, 
+    "Admin": userExist.username});
     }
     else 
       {
-      res.status(404).json({message:"book currently unavailable to borrow", "book": exist})
+      res.status(404).json({message:"book currently unavailable to borrow"})
       
     }
   });
@@ -125,12 +129,13 @@ app.put('/api/v1/users/:userId/borrow/:bookId', (req, res) => {
 app.put('/api/v1/users/:userId/return/:bookId', (req, res) => {
 
   const userId = parseInt(req.params.userId, 10);
- // var userExist = user.filter(r => r.userId === userId)[0];
+  const userExist = user.filter(r => r.userId === userId)[0];
   const bookId = parseInt(req.params.bookId, 10)
   const exist = books.filter(r => r.bookId === bookId)[0];
 
 
-      res.status(200).json({message:"This book is successfully returned", "book": exist})
+      res.status(200).json({message:"This book is successfully returned", "bookName": exist.bookName, "bookId": bookId, 
+    "Admin": userExist.username})
       
   });
 
@@ -155,7 +160,8 @@ app.post('/api/v1/users/:userId/review/:bookId', (req, res)=> {
     }
     
     bookExist.review = item
-            res.status(200).json({message:'Thanks for you review', "book": bookExist});
+    reviews.push(item)
+            res.status(200).json({message:'Thanks for you review', "review": item, "userId": userId, "bookId": bookId});
         });
 
 //API Endpoint to mark a book as favorite
@@ -173,7 +179,8 @@ else if (!userExist) {
 }
 
 else {
-  res.json({ status: true, message: "Marked as favorite", "book": bookExist} )
+  res.json({ status: true, message: "Marked as favorite", "bookName": bookExist.bookName, "bookId": bookId, 
+    "username": userExist.username, "userId": userId} )
 }
 });
 
@@ -189,7 +196,7 @@ app.get('/api/v1/users/:userId/favbooks', (req, res)=>{
       let fav = [];
       fav = userExist.favorites
       //const favoritebooks = userExist.favorites;
-       res.json(fav)
+       res.json({"username": userExist.username, "favorites": fav});
     }
 });
 
