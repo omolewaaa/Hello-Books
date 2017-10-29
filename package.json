@@ -26,11 +26,8 @@
     "jsonwebtoken": "^8.1.0",
     "jwt-simple": "^0.5.1",
     "mocha": "^4.0.1",
-    "morgan": "^1.9.0",
-    //"pg": "^7.3.0",
-    //"pg-hstore": "^2.3.2",
-    //"sequelize": "^4.17.0",
-    //"sequelize-cli": "^3.0.0"
+    "morgan": "^1.9.0"
+    
   },
   "devDependencies": {
     "chai": "^3.2.0",
@@ -40,8 +37,8 @@
     "eslint-config-eslint": "^4.0.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",
-    "nodemon": "^1.12.1",
-   // "sequelize-cli": "^3.0.0"
+    "nodemon": "^1.12.1"
+   
   },
   "description": ""
 }
