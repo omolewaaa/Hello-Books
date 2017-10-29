@@ -2,6 +2,7 @@
 {
     "userId": 1,
     "bookId": 1,
-    "review": "This is a great read"
+    "review": "This is a great read",
+    "reviewId": 1
   }
 ]

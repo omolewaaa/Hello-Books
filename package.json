@@ -2,12 +2,15 @@
   "name": "Hello-Books",
   "version": "1.0.0",
   "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
   "engines": {
     "node": "6.10.3"
   },
   "scripts": {
     "start:dev": "nodemon ./app/server/bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha app/server/test/test.js"
   },
   "repository": {
     "type": "git",
@@ -25,10 +28,16 @@
     "express": "^4.16.1",
     "jsonwebtoken": "^8.1.0",
     "jwt-simple": "^0.5.1",
+    "mocha": "^4.0.1",
     "morgan": "^1.9.0",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.17.0",
     "sequelize-cli": "^3.0.0"
   },
   "devDependencies": {
+    "chai": "^3.2.0",
+    "chai-http": "^1.0.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.0.0",
     "eslint-config-eslint": "^4.0.0",

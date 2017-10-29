@@ -1,34 +1,58 @@
-const express = require('express');
+const express = require('express'); 
 const bodyParser = require('body-parser');
 const app = express();
 //const jwt    = require('jsonwebtoken');
 const books = require('../models/book');
 const user = require('../models/user');
 const reviews = require('../models/review');
+const favo = require ('../models/favorites');
+const borrowed = require ('../models/borrow');
 
 
 app.use(bodyParser.json());
 
+const dataType = {bookName:'string', Author: 'string'};
+
 module.exports = (app) => {
   app.get('/api', (req, res) => 
-  	res.json(Books));
+  	res.json('Welcome to Hello-Books.'));
 
 //API Endpoint to add a book
   app.post('/api/v1/books', (req, res)=> {
   	const item = req.body;
     item.bookId = books.length + 1;
-   // if (!item.id) {
-    //    return res.sendStatus(500);
-    //}
+   
      if (!item.bookName) {
+
         return res.status(500).json({ status: false, message: "please enter the name of the book"});
     }
     else if (!item.Author) {
         return res.status(500).json({ status: false, message: "please enter the name of the Author"});
     }
-
-  	books.push(item);
+    else if (!item.Author) {
+        return res.status(500).json({ status: false, message: "please enter the name of the Author"});
+    }
+    else if (!item.bookStatus) {
+        return res.status(500).json({ status: false, message: "please enter the status of the book"});
+    }
+    
+    else if(!isNaN(item.bookName)){
+        return res.status(500).json({ status: false, message: "Name of book cannot be a number"});
+    }
+    else if (!isNaN(item.Author)){
+        return res.status(500).json({ status: false, message: "Name of Author cannot be a number"});
+    }
+    else if (!isNaN(item.bookStatus)){
+        return res.status(500).json({ status: false, message: "status of book cannot be a number"});
+    }
+    else if (item.bookStatus === "available" || item.bookStatus === "unavailable") {
+  	books.push(item)
             res.status(200).json({message:'book added successfully', "data": item});
+        //console.log(typeof(item.bookName))
+          }
+          else{
+          return res.status(500).json({ status: false, message: "books can either be available or unavailable"});
+        }
         });
   
 
@@ -80,6 +104,7 @@ if (bookExist && bookExist.bookStatus === "unavailable") {
     "bookId": bookId, "status": bookExist.bookStatus, "username": userExist.username, "userId": userId})
 }
 else {
+  borrowed.push(userId, bookId)
   res.json({ status: true, message:'enjoy the book', "bookName": bookExist.bookName, "bookId": bookId, 
     "username": userExist.username, "userId": userId} )
 }
@@ -147,6 +172,7 @@ app.post('/api/v1/users/:userId/review/:bookId', (req, res)=> {
   const userExist = user.filter(r => r.userId === userId)[0];
   const bookId = parseInt(req.params.bookId, 10)
   const bookExist = books.filter(r => r.bookId === bookId)[0];
+   item.reviewId = reviews.length + 1;
 
   const item = req.body;
        if (!userExist) {
@@ -162,7 +188,7 @@ app.post('/api/v1/users/:userId/review/:bookId', (req, res)=> {
     }
     
     bookExist.review = item
-    reviews.push(item)
+    reviews.push({userId, bookId, item})
             res.status(200).json({message:'Thanks for you review', "review": item, "userId": userId, "bookId": bookId});
         });
 
@@ -173,6 +199,7 @@ app.post('/api/v1/users/:userId/fav/:bookId', (req, res)=> {
   const bookId = parseInt(req.params.bookId, 10)
   const bookExist = books.filter(r => r.bookId === bookId)[0];
 
+
   if (!bookExist) {
   res.status(404).json("This book does not exist")
 }
@@ -181,6 +208,7 @@ else if (!userExist) {
 }
 
 else {
+  favo.push({userId,bookId});
   res.json({ status: true, message: "Marked as favorite", "bookName": bookExist.bookName, "bookId": bookId, 
     "username": userExist.username, "userId": userId} )
 }
@@ -190,15 +218,18 @@ else {
 //API Endpoint to get user's favorite books
 app.get('/api/v1/users/:userId/favbooks', (req, res)=>{
   const userId = parseInt(req.params.userId, 10);
-  const userExist = user.filter(r => r.userId === userId)[0];
+  const userExist = favo.filter(r => r.userId === userId)[0];
     if (!userExist) {
-        res.status(404).json("user not found")
+        res.status(404).json("you have no favorite book")
       }
     else {
       let fav = [];
       fav = userExist.favorites
+      const favbooks = userExist.bookId
+      const usersname = userExist.userId
       //const favoritebooks = userExist.favorites;
-       res.json({"username": userExist.username, "favorites": fav});
+      // res.json({"username": userExist.username, "favorites": fav});
+       res.json({message: "see below your favorites book", "favbook": favbooks, "user": usersname});
     }
 });
 
