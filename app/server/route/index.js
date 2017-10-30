@@ -70,6 +70,13 @@ app.put('/api/v1/books/:bookId', (req, res) => {
        exist.bookName = req.body.bookName;
        exist.Author = req.body.Author;
        exist.bookStatus = req.body.bookStatus;
+
+     if(!isNaN(exist.bookName)){
+        return res.status(500).json({ status: false, message: "Name of book cannot be a number"});
+    }
+     if (!isNaN(exist.Author)){
+        return res.status(500).json({ status: false, message: "Name of Author cannot be a number"});
+    }
        if (exist.bookStatus === "available" || exist.bookStatus === "unavailable") {
       
       res.status(201).json({message:'book modified successfully', "data": exist});
