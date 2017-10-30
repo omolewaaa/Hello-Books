@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start:dev": "nodemon ./app/server/bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha app/server/test"
   },
   "repository": {
     "type": "git",
