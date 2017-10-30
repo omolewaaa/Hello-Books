@@ -15,7 +15,7 @@ const dataType = {bookName:'string', Author: 'string'};
 
 module.exports = (app) => {
   app.get('/api', (req, res) => 
-  	res.json('Welcome to Hello-Books.'));
+  	res.json('Welcome to Hello-Books.'))
 
 //API Endpoint to add a book
   app.post('/api/v1/books', (req, res)=> {
