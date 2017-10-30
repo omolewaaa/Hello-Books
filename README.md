@@ -34,7 +34,7 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
  *   **Endpoints  to add a book and modify a book**
  
         	POST: /api/v1/books
-		Input : {bookName,Author,bookStatus}
+			Input : {bookName,Author,bookStatus}
 		
 			PUT: /api/v1/books/:bookId
 			Input : {bookId}
