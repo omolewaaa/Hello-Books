@@ -66,13 +66,17 @@ app.put('/api/v1/books/:bookId', (req, res) => {
 
     res.status(404).json("book does not exist")
     }
-		else 
       
        exist.bookName = req.body.bookName;
        exist.Author = req.body.Author;
        exist.bookStatus = req.body.bookStatus;
+       if (exist.bookStatus === "available" || exist.bookStatus === "unavailable") {
       
       res.status(201).json({message:'book modified successfully', "data": exist});
+    }
+    else {
+      return res.status(500).json({ status: false, message: "books can either be available or unavailable"});
+    }
      });
 
 
