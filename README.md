@@ -29,6 +29,11 @@ Clone this repository using the command git clone https://github.com/omolewaaa/H
  *    Installation of Postman for testing the API routes
  
  
+ **Published Template**
+
+https://omolewaaa.github.io/Hello-Books/
+
+  
  **END POINT**
  
  *   **Endpoints  to add a book and modify a book**
