@@ -11,7 +11,6 @@ const borrowed = require ('../borrow');
 
 app.use(bodyParser.json());
 
-const dataType = {bookName:'string', Author: 'string'};
 
 module.exports = (app) => {
   app.get('/api', (req, res) => 
