@@ -16,7 +16,7 @@ describe('Books', () => {
             bookStaus: "available"
         }
         //chai.request(app)
-            .post('/book')
+           // .post('/book')
             .send(book)
             .end((err, res) => {
                 res.should.have.status(200);
@@ -25,4 +25,4 @@ describe('Books', () => {
       });
 
   });
-});
+})
