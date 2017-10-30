@@ -5,13 +5,11 @@ const app = express();
 const books = require('../models/book');
 const user = require('../models/user');
 const reviews = require('../models/review');
-const favo = require ('../models/favorites');
-const borrowed = require ('../models/borrow');
+const favo = require ('../favorites');
+const borrowed = require ('../borrow');
 
 
 app.use(bodyParser.json());
-
-const dataType = {bookName:'string', Author: 'string'};
 
 module.exports = (app) => {
   app.get('/api', (req, res) => 
