@@ -2,11 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 //const jwt    = require('jsonwebtoken');
-const books = require('../models/book');
 const user = require('../models/user');
 const reviews = require('../models/review');
 const favo = require ('../favorites');
 const borrowed = require ('../borrow');
+
 
 
 app.use(bodyParser.json());
@@ -90,52 +90,22 @@ app.get('/api/v1/books', (req, res)=> {
 	res.json(books);
 });
 
+const booksController = require('../controllers/book');
+const userController = require('../controllers/user');
 
-//API Endpoint to borrow a book
-app.post('/api/v1/users/:userId/borrow/:bookId', (req, res)=> {
+module.exports = (app) => {
+  app.get('/api', (req, res) => 
+    res.json('Welcome to Hello-Books.'))
 
-  const userId = parseInt(req.params.userId, 10);
-  const userExist = user.filter(r => r.userId === userId)[0];
- 
-  const bookId = parseInt(req.params.bookId, 10);
-  const bookExist = books.filter(r => r.bookId === bookId)[0];
-  
- 
-if (!bookExist) {
-  res.status(404).json("This book does not exist")
-}
-else if (!userExist) {
-  res.status(404).json("user not found")
-}
 
-if (bookExist && bookExist.bookStatus === "unavailable") {
-  res.status(404).json({message: "This book is currently unavailable", "bookName": bookExist.bookName, 
-    "bookId": bookId, "status": bookExist.bookStatus, "username": userExist.username, "userId": userId})
-}
-else {
-  borrowed.push(userId, bookId)
-  res.json({ status: true, message:'enjoy the book', "bookName": bookExist.bookName, "bookId": bookId, 
-    "username": userExist.username, "userId": userId} )
-}
 
-  });
-
- 
-//API to return borrowed book
-app.post('/api/v1/users/:userId/return/:bookId', (req, res)=> {
-  const userId = parseInt(req.params.userId, 10);
-  const userExist = user.filter(users => users.userId === userId)[0];
- 
-  const bookId = parseInt(req.params.bookId, 10);
-  const bookExist = books.filter(r => r.bookId === bookId)[0];
   
   res.json({ status: true, message:'Thanks for the return, we are sure you enjoy the book', 
     "bookName": bookExist.bookName, "bookId": bookId, 
     "username": userExist.username, "userId": userId} )
 
 
-  });
-
+  
 
 //API Endpoint to accept/reject reqquest to borrow a book
 app.put('/api/v1/users/:userId/borrow/:bookId', (req, res) => {
@@ -262,4 +232,19 @@ app.get('/api/v1/users/:userId/favbooks', (req, res)=>{
 
 
 
+
+
+  app.post('/api/v1/books', booksController.create);
+  app.put('/api/v1/books/:bookId', booksController.modify);
+  app.get('/api/v1/books', booksController.getAllBooks);
+  app.post('/api/v1/users/:userId/borrow/:bookId', userController.borrow);
+  app.post('/api/v1/users/:userId/return/:bookId', userController.returnBook);
+  app.put('/api/v1/users/:userId/borrow/:bookId', booksController.acceptBorrowedBook);
+  app.put('/api/v1/users/:userId/return/:bookId', booksController.acceptReturnedBook);
+  app.post('/api/v1/users/:userId/review/:bookId', userController.reviewBook);
+  app.post('/api/v1/users/:userId/fav/:bookId', userController.favorites);
+  app.get('/api/v1/users/:userId/favbooks', userController.getFavorites);
+  app.get('/api/v1/books/sorted', booksController.sorted);
+
+  };
 
