@@ -7,7 +7,9 @@
   },
   "scripts": {
     "start:dev": "nodemon ./app/server/bin/www",
-    "test": "./node_modules/.bin/mocha app/server/test"
+    "test": "./node_modules/.bin/mocha app/server/test",
+    "coverage": "npm bin/mocha-lcov-reporter ./test",
+    "coveralls": "npm run-script coverage && node bin/coveralls.js < coverage/lcov.info"
   },
   "repository": {
     "type": "git",
