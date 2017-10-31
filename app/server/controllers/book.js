@@ -43,6 +43,7 @@ exports.create = (req, res) => {
 //API Endpoint to modify a book
 
 exports.modify = (req, res) => {
+	const item = req.body;
 	const bookId = parseInt(req.params.bookId, 10);
   const exist = books.filter(r => r.bookId === bookId)[0];
  
@@ -56,7 +57,7 @@ exports.modify = (req, res) => {
        exist.Author = req.body.Author;
        exist.bookStatus = req.body.bookStatus;
        */
-	const item = req.body;
+	
 	
        if(!isNaN(item.bookName)){
         return res.status(500).json({ status: false, message: "Name of book cannot be a number"});
