@@ -6,12 +6,15 @@ const user = require('../models/user');
 const reviews = require('../models/review');
 const favo = require ('../favorites');
 const borrowed = require ('../borrow');
+const booksController = require('../controllers/book');
+const userController = require('../controllers/user');
 
 module.exports = (app) => {
   app.get('/api', (req, res) => 
-  	res.json('Welcome to Hello-Books.'))
+    res.json('Welcome to Hello-Books.'))
 
 
+  
   app.post('/api/v1/books', booksController.create);
   app.put('/api/v1/books/:bookId', booksController.modify);
   app.get('/api/v1/books', booksController.getAllBooks);
@@ -27,11 +30,5 @@ module.exports = (app) => {
 
 
   
-};
 
-
-
-
-
-
-
+  };
