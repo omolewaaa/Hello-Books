@@ -11,7 +11,7 @@ const userController = require('../controllers/user')
 
 
 
-app.use(bodyParser.json());
+/*app.use(bodyParser.json());
 
 module.exports = (app) => {
   app.get('/api', (req, res) => 
@@ -31,7 +31,7 @@ module.exports = (app) => {
   app.get('/api/v1/books/sorted', booksController.sorted);
   
 };
-
+*/
 
 
 
