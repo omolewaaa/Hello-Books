@@ -27,7 +27,23 @@ describe('Books', () => {
             
       });
      });
-it('it should not post if status is neither unavailable or available', (done) => {
+it('it should not post if book name is number', (done) => {
+        let item = {
+            bookName: 1,
+            Author: "J.R.R. Tolkien",
+            bookStatus: "available"
+        };
+        chai.request(app)
+            .post('/api/v1/books')
+            .send(item)
+            .end((err, res) => {
+                res.should.have.status(500);
+              done();
+            
+      });
+     });
+ 
+    it('it should not post if status is neither unavailable or available', (done) => {
         let item = {
             bookName: "The Lord of the Rings",
             Author: "J.R.R. Tolkien",
@@ -42,8 +58,9 @@ it('it should not post if status is neither unavailable or available', (done) =>
             
       });
      });
-  });
+ 
   after(() => {
            process.exit(0)
          });
+     });
 })
