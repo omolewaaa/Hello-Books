@@ -1,15 +1,11 @@
 language: node_js
 node_js:
   - "6"
+
 after_success:
+  - npm install codeclimate-test-reporter -g
   - npm run coverage
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
- 
-=======
->>>>>>> a12fde8425171483c94db24c158077aa2e1d163c
->>>>>>> server
-=======
->>>>>>> 5abdd046431f6738aa3287802e4856cff998409d
+
+addons:
+  code_climate:
+    repo_token: 527b5b1cc3d64c4d205a28e8d047ccb43004565dd37f41e337e67d6d795168ce
