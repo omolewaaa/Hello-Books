@@ -61,14 +61,15 @@ it('it should not post if status is neither unavailable or available', (done) =>
   });
   describe('/PUT/api/v1/books/:bookId', () => {
       it('it should post a book when all input supplied correctly', (done) => {
-        let item = {
+        /*let item = {
             bookName: "The Lord of the Rings",
             Author: "J.R.R. Tolkien",
             bookStatus: "available"
         };
+        */
         chai.request(app)
             .put('/api/v1/books/+res.body[0]._bookId')
-            .send(item)
+            .send({'bookName': 'Spider'})
             .end((err, res) => {
                 res.should.have.status(200);
               done();
@@ -76,14 +77,15 @@ it('it should not post if status is neither unavailable or available', (done) =>
       });
      });
 it('it should not put if status is neither unavailable or available', (done) => {
-        let item = {
+        /*let item = {
             bookName: "The Lord of the Rings",
             Author: "J.R.R. Tolkien",
             bookStatus: "avai"
         };
+        */
         chai.request(app)
             .put('/api/v1/books/:bookId')
-            .send(item)
+            .send({'bookStatus': 'AVA'})
             .end((err, res) => {
                 res.should.have.status(500);
               done();
