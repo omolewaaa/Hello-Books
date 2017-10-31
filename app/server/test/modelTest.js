@@ -43,4 +43,7 @@ it('it should not post if status is neither unavailable or available', (done) =>
       });
      });
   });
+  after(() => {
+           process.exit(0)
+         });
 })
