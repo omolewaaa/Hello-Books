@@ -3,3 +3,7 @@ node_js:
   - "6"
 after_success:
   - npm run coverage
+  
+  addons:
+  code_climate:
+    repo_token: MWcKaFmbxiE5AkImDD3xnxBKXdoIsIdEi
