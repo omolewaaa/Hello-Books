@@ -1,7 +1,7 @@
 const express = require('express'); 
 const bodyParser = require('body-parser');
 const app = express();
-//const jwt    = require('jsonwebtoken');
+const jwt    = require('jsonwebtoken');
 const user = require('../models/user');
 const reviews = require('../models/review');
 const favo = require ('../favorites');
