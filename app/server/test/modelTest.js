@@ -99,6 +99,7 @@ it('it should not put if status is neither unavailable or available', (done) => 
             
       });
      });
+    });
   
   after(() => {
            process.exit(0)
