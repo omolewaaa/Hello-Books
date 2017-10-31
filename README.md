@@ -2,7 +2,7 @@
 
 **HELLO-BOOKS**
 
-[![Build Status](https://travis-ci.org/omolewaaa/Hello-Books.svg?branch=development)
+[![Build Status](https://travis-ci.org/omolewaaa/Hello-Books.svg?branch=development)](https://travis-ci.org/omolewaaa/Hello-Books)
 [![Coverage Status](https://coveralls.io/repos/github/omolewaaa/Hello-Books/badge.svg?branch=development)](https://coveralls.io/github/omolewaaa/Hello-Books?branch=development)
 
 Hello-Books is a simple application that helps manage a library and its processes,With this application users are able to find and rent books. 
