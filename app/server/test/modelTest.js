@@ -59,7 +59,7 @@ it('it should not post if status is neither unavailable or available', (done) =>
       });
      });
   });
-  describe('/PUT/api/v1/books/:bookId', () => {
+ 
       it('it should post a book when all input supplied correctly', (done) => {
         let item = {
             bookName: "The Lord of the Rings",
@@ -99,7 +99,7 @@ it('it should not put if status is neither unavailable or available', (done) => 
             
       });
      });
-  });
+  
   after(() => {
            process.exit(0)
          });
