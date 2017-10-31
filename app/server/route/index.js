@@ -2,41 +2,58 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 //const jwt    = require('jsonwebtoken');
+const books = require('../models/book');
 const user = require('../models/user');
 const reviews = require('../models/review');
 const favo = require ('../favorites');
 const borrowed = require ('../borrow');
-<<<<<<< HEAD
-=======
-const booksController = require('../controllers/book');
-const userController = require('../controllers/user')
->>>>>>> server
 
 
-
-<<<<<<< HEAD
-=======
 app.use(bodyParser.json());
->>>>>>> server
+
 
 module.exports = (app) => {
   app.get('/api', (req, res) => 
-  	res.json('Welcome to Hello-Books.'))
+  	res.json('Welcome to Hello-Books.'));
 
+//API Endpoint to add a book
+  app.post('/api/v1/books', (req, res)=> {
+  	const item = req.body;
+    item.bookId = books.length + 1;
+   
+     if (!item.bookName) {
 
-  app.post('/api/v1/books', booksController.create);
-  app.put('/api/v1/books/:bookId', booksController.modify);
-  app.get('/api/v1/books', booksController.getAllBooks);
-  app.post('/api/v1/users/:userId/borrow/:bookId', userController.borrow);
-  app.post('/api/v1/users/:userId/return/:bookId', userController.returnBook);
-  app.put('/api/v1/users/:userId/borrow/:bookId', booksController.acceptBorrowedBook);
-  app.put('/api/v1/users/:userId/return/:bookId', booksController.acceptReturnedBook);
-  app.post('/api/v1/users/:userId/review/:bookId', userController.reviewBook);
-  app.post('/api/v1/users/:userId/fav/:bookId', userController.favorites);
-  app.get('/api/v1/users/:userId/favbooks', userController.getFavorites);
-  app.get('/api/v1/books/sorted', booksController.sorted);
+        return res.status(500).json({ status: false, message: "please enter the name of the book"});
+    }
+    else if (!item.Author) {
+        return res.status(500).json({ status: false, message: "please enter the name of the Author"});
+    }
+    else if (!item.Author) {
+        return res.status(500).json({ status: false, message: "please enter the name of the Author"});
+    }
+    else if (!item.bookStatus) {
+        return res.status(500).json({ status: false, message: "please enter the status of the book"});
+    }
+    
+    else if(!isNaN(item.bookName)){
+        return res.status(500).json({ status: false, message: "Name of book cannot be a number"});
+    }
+    else if (!isNaN(item.Author)){
+        return res.status(500).json({ status: false, message: "Name of Author cannot be a number"});
+    }
+    else if (!isNaN(item.bookStatus)){
+        return res.status(500).json({ status: false, message: "status of book cannot be a number"});
+    }
+    else if (item.bookStatus === "available" || item.bookStatus === "unavailable") {
+  	books.push(item)
+            res.status(200).json({message:'book added successfully', "data": item});
+        //console.log(typeof(item.bookName))
+          }
+          else{
+          return res.status(500).json({ status: false, message: "books can either be available or unavailable"});
+        }
+        });
   
-<<<<<<< HEAD
 
   // API Endpoint to modify a book
 app.put('/api/v1/books/:bookId', (req, res) => {
@@ -239,8 +256,6 @@ app.get('/api/v1/users/:userId/favbooks', (req, res)=>{
  });
 
 
-=======
->>>>>>> server
 };
 
 
