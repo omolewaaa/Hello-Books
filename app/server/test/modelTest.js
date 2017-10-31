@@ -68,7 +68,7 @@ it('it should not post if status is neither unavailable or available', (done) =>
         };
         
         chai.request(app)
-            .put('/api/v1/books/+res.body[0]._bookId')
+            .put('/api/v1/books/:bookId')
             .send({'bookName': 'Spider'})
             .end((err, res) => {
                 res.should.have.status(201);
