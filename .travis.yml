@@ -3,6 +3,7 @@ node_js:
   - "6"
 
   after_success:
-  - npm install codeclimate-test-reporter -g
   - npm run coverage
 
+addons:
+    repo_token: yss3uAPO4d37EcrMY4V9SNlRP8twCg0U4
