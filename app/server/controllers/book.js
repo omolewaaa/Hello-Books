@@ -73,7 +73,7 @@ exports.modify = (req, res) => {
       return res.status(500).json({ status: false, message: "books can either be available or unavailable"});
     }
       
-      res.status(201).json({message:'book modified successfully', "data": exist});
+      res.status(201).json({message:'book modified successfully'});
     
 }
 
