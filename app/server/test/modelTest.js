@@ -69,7 +69,7 @@ it('it should not post if status is neither unavailable or available', (done) =>
         
         chai.request(app)
             .put('/api/v1/books/+res.body[0]._bookId')
-            .send(item)
+            .send({'bookName': 'Spider'})
             .end((err, res) => {
                 res.should.have.status(201);
                 res.should.be.json;
@@ -79,22 +79,6 @@ it('it should not post if status is neither unavailable or available', (done) =>
                 res.body.UPDATED.should.have.property('bookName, Author, bookStatus');
                 res.body.UPDATED.should.have.property('_bookId');
                 res.body.UPDATED.name.should.equal('item')
-              done();
-            
-      });
-     });
-it('it should not put if status is neither unavailable or available', (done) => {
-        /*let item = {
-            bookName: "The Lord of the Rings",
-            Author: "J.R.R. Tolkien",
-            bookStatus: "avai"
-        };
-        */
-        chai.request(app)
-            .put('/api/v1/books/:bookId')
-            .send({'bookStatus': 'AVA'})
-            .end((err, res) => {
-                res.should.have.status(500);
               done();
             
       });
