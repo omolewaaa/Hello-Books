@@ -72,6 +72,13 @@ it('it should not post if status is neither unavailable or available', (done) =>
             .send({'bookName': 'Spider'})
             .end((err, res) => {
                 res.should.have.status(200);
+                res.should.be.json;
+                res.body.should.be.a('object');
+                res.body.should.have.property('UPDATED');
+                res.body.UPDATED.should.be.a('object');
+                res.body.UPDATED.should.have.property('name');
+                res.body.UPDATED.should.have.property('_id');
+                res.body.UPDATED.name.should.equal('Spider')
               done();
             
       });
