@@ -1,1 +1,14 @@
-repo_token: MWcKaFmbxiE5AkImDD3xnxBKXdoIsIdEi
+engines:
+  eslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript:
+ratings:
+   paths:
+     - 'server/'
+exclude_paths:
+  - 'server/tests/'
+  - 'server/config/'
