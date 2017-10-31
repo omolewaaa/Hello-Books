@@ -3,13 +3,3 @@ node_js:
   - "6"
 after_success:
   - npm run coverage
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
- 
-=======
->>>>>>> a12fde8425171483c94db24c158077aa2e1d163c
->>>>>>> server
-=======
->>>>>>> 5abdd046431f6738aa3287802e4856cff998409d
