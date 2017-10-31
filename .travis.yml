@@ -2,8 +2,9 @@ language: node_js
 node_js:
   - "6"
 
+  script:
+  - npm run test
+
   after_success:
   - npm run coverage
 
-addons:
-    repo_token: yss3uAPO4d37EcrMY4V9SNlRP8twCg0U4
