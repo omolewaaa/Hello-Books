@@ -52,16 +52,19 @@ exports.modify = (req, res) => {
     }
 		else 
       
-       exist.bookName = req.body.bookName;
+       /*exist.bookName = req.body.bookName;
        exist.Author = req.body.Author;
        exist.bookStatus = req.body.bookStatus;
-       if(!isNaN(exist.bookName)){
+       */
+	const item = req.body;
+	
+       if(!isNaN(item.bookName)){
         return res.status(500).json({ status: false, message: "Name of book cannot be a number"});
     }
-    else if (!isNaN(exist.Author)){
+    else if (!isNaN(item.Author)){
         return res.status(500).json({ status: false, message: "Name of Author cannot be a number"});
     }
-    else if (exist.bookStatus === "available" || exist.bookStatus === "unavailable") {
+    else if (item.bookStatus === "available" || exist.bookStatus === "unavailable") {
       
       res.status(201).json({message:'book modified successfully', "data": exist});
     }
