@@ -44,9 +44,9 @@ it('it should not post if status is neither unavailable or available', (done) =>
      });
     it('it should not post if input for bookName is number', (done) => {
         let item = {
-            bookName: "1",
+            bookName: 1,
             Author: "J.R.R. Tolkien",
-            bookStatus: "avai"
+            bookStatus: "avaiLable"
         };
         chai.request(app)
             .post('/api/v1/books')
