@@ -60,7 +60,7 @@ it('it should not post if status is neither unavailable or available', (done) =>
      });
   
  
-      it('it should post a book when all input supplied correctly', (done) => {
+      it('it should put a book when all input supplied correctly', (done) => {
         let item = {
             bookName: "The Lord of the Rings",
             Author: "J.R.R. Tolkien",
@@ -71,14 +71,14 @@ it('it should not post if status is neither unavailable or available', (done) =>
             .put('/api/v1/books/+res.body[0]._bookId')
             .send(item)
             .end((err, res) => {
-                res.should.have.status(200);
+                res.should.have.status(201);
                 res.should.be.json;
                 res.body.should.be.a('object');
                 res.body.should.have.property('UPDATED');
                 res.body.UPDATED.should.be.a('object');
-                res.body.UPDATED.should.have.property('name');
-                res.body.UPDATED.should.have.property('_id');
-                res.body.UPDATED.name.should.equal('Spider')
+                res.body.UPDATED.should.have.property('bookName, Author, bookStatus');
+                res.body.UPDATED.should.have.property('_bookId');
+                res.body.UPDATED.name.should.equal('item')
               done();
             
       });
