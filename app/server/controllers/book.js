@@ -47,16 +47,16 @@ exports.modify = (req, res) => {
 	const bookId = parseInt(req.params.bookId, 10);
   const exist = books.filter(r => r.bookId === bookId)[0];
  
-    if(!exist){
+   /* if(!exist){
 
     res.status(404).json("book does not exist")
     }
 		else 
       
-       /*exist.bookName = req.body.bookName;
+       exist.bookName = req.body.bookName;
        exist.Author = req.body.Author;
        exist.bookStatus = req.body.bookStatus;
-       */
+       
 	
 	
        if(!isNaN(item.bookName)){
@@ -72,7 +72,7 @@ exports.modify = (req, res) => {
     else {
       return res.status(500).json({ status: false, message: "books can either be available or unavailable"});
     }
-      
+      */
       return res.status(201).json({item});
     
 }
