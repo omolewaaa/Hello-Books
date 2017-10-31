@@ -46,7 +46,7 @@ it('it should not post if status is neither unavailable or available', (done) =>
         let item = {
             bookName: 1,
             Author: "J.R.R. Tolkien",
-            bookStatus: "avaiLable"
+            bookStatus: "available"
         };
         chai.request(app)
             .post('/api/v1/books')
