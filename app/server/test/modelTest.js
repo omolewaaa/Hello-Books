@@ -42,6 +42,21 @@ it('it should not post if status is neither unavailable or available', (done) =>
             
       });
      });
+    it('it should not post if input for bookName is number', (done) => {
+        let item = {
+            bookName: "1",
+            Author: "J.R.R. Tolkien",
+            bookStatus: "avai"
+        };
+        chai.request(app)
+            .post('/api/v1/books')
+            .send(item)
+            .end((err, res) => {
+                res.should.have.status(500);
+              done();
+            
+      });
+     });
   });
   after(() => {
            process.exit(0)
