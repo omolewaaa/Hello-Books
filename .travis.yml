@@ -12,5 +12,5 @@ after_success:
 
 addons:
   code_climate:
-    repo_token: 527b5b1cc3d64c4d205a28e8d047ccb43004565dd37f41e337e67d6d795168ce
+    repo_token:  MWcKaFmbxiE5AkImDD3xnxBKXdoIsIdEi
 
