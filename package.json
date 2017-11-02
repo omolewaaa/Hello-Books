@@ -7,8 +7,7 @@
   },
   "scripts": {
     "start:dev": "nodemon ./app/server/bin/www",
-    "test": "./node_modules/.bin/mocha app/server/test",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "test": "./node_modules/.bin/mocha app/server/test"
   },
   "repository": {
     "type": "git",
@@ -28,7 +27,11 @@
     "jsonwebtoken": "^8.1.0",
     "jwt-simple": "^0.5.1",
     "mocha": "^4.0.1",
-    "morgan": "^1.9.0"
+    "morgan": "^1.9.0",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.20.3",
+    "sequelize-cli": "^3.0.0"
   },
   "devDependencies": {
     "chai": "^3.2.0",
