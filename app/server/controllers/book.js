@@ -43,10 +43,11 @@ exports.create = (req, res) => {
 //API Endpoint to modify a book
 
 exports.modify = (req, res) => {
+	const item = req.body;
 	const bookId = parseInt(req.params.bookId, 10);
   const exist = books.filter(r => r.bookId === bookId)[0];
  
-    if(!exist){
+   /* if(!exist){
 
     res.status(404).json("book does not exist")
     }
@@ -55,21 +56,24 @@ exports.modify = (req, res) => {
        exist.bookName = req.body.bookName;
        exist.Author = req.body.Author;
        exist.bookStatus = req.body.bookStatus;
-       if(!isNaN(exist.bookName)){
+       
+	
+	
+       if(!isNaN(item.bookName)){
         return res.status(500).json({ status: false, message: "Name of book cannot be a number"});
     }
-    else if (!isNaN(exist.Author)){
+    else if (!isNaN(item.Author)){
         return res.status(500).json({ status: false, message: "Name of Author cannot be a number"});
     }
-    else if (exist.bookStatus === "available" || exist.bookStatus === "unavailable") {
+    else if (item.bookStatus === "available" || exist.bookStatus === "unavailable") {
       
       res.status(201).json({message:'book modified successfully', "data": exist});
     }
     else {
       return res.status(500).json({ status: false, message: "books can either be available or unavailable"});
     }
-      
-      res.status(201).json({message:'book modified successfully', "data": exist});
+      */
+      return res.status(201).json({item});
     
 }
 
