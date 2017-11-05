@@ -8,5 +8,6 @@ module.exports = (app) => {
     message: 'welcome to postit application.',
   }));
 
-  app.post('/api/users/signup', usersController.create)
+  app.post('/api/users/signup', usersController.create);
+  app.post('/api/users/signin', usersController.login);
 }
