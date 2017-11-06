@@ -1,5 +1,5 @@
 const usersController = require('../controller/user');
-//let verifyToken = require('../middlewares/middlewares');
+let verifyToken = require('../middleware/middleware');
 //const loginController = require('../controller').login;
 
 
@@ -10,4 +10,5 @@ module.exports = (app) => {
 
   app.post('/api/users/signup', usersController.create);
   app.post('/api/users/signin', usersController.login);
+  app.post('/api/users/signout', verifyToken, usersController.logout);
 }

@@ -128,4 +128,11 @@ exports.login = (req, res) => {
 }
 };
 
+//code for users to logout
+exports.logout = (req, res) => {
+  
+  //res.redirect('/api/users/signin');
+  //res.status(200).send({message: "logged out successfully"});
+  res.redirect('/api/users/signin');
+  };
 
