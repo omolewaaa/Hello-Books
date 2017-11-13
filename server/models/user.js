@@ -20,7 +20,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,  
    },
-   },
+  
+
+   /*role: {
+      //allowNull: false,  
+      type: DataTypes.ENUM,
+      values: ['user', 'admin'],
+      //default: "user"
+
+    },
+   */ 
+    },
    {
     classMethods: {
       associate: (models) => {

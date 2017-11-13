@@ -5,6 +5,7 @@
     "database": "hello_books",
     "host": "127.0.0.1",
     "port": 5432,
+    "seederStorage":"sequelize",
     "dialect": "postgres"
   },
   "test": {

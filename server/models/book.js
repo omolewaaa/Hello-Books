@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var book = sequelize.define('book', {
-    admin_id: DataTypes.INTEGER,
+    user_id: DataTypes.INTEGER,
     bookName: DataTypes.STRING,
     Author: DataTypes.STRING,
     bookStatus: DataTypes.STRING

@@ -43,8 +43,11 @@ exports.create = (req, res) => {
         else if(!req.body.password){
           res.status(400).send("Please enter your password");
         }
-        else{
-            len=5;
+        
+        else
+        
+         // if (req.body.role !== "user")
+          //  res.status(400).send("You can either be user or admin")
         
           if (!validator.isAlpha(req.body.username)){
                res.status(400).send("Only letters are allowed as username")
@@ -56,24 +59,25 @@ exports.create = (req, res) => {
           if (!validator.isAlphanumeric(req.body.password)){
              res.send("password must contain number and alphabet")
           }
-          if (req.body.password < 5){
-                res.status(400).send("Password must be at least six character long")
-          }
-
+          
+           
         user.create ({
         username: req.body.username,
         email: req.body.email,
+        role: req.body.role,
         password : bcrypt.hashSync((req.body.password), salt)
         })
           .then((user) => {
-            res.status(200).send({ status: true, message:'You are registered Successfully', "username": user.username, "email": user.email});
+            res.status(200).send({ status: true, message:'You are registered Successfully', "username": user.username, "email": user.email,  "role": user.role});
         })
           .catch(error => res.status(400).send(error));
-        } 
-    
+        
+    //}
+       
       });
   
     }
+
 
    });
 
