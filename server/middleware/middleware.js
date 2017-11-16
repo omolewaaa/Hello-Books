@@ -9,6 +9,9 @@ module.exports = (req, res, next) => {
         if (err) {
           return res.send(err);
         } 
+        //else if (decoded.exp - parseInt(new Date().getTime() / 1000)) {}
+        //  .then(expiration => redis.set(req.body.token, true, 'EX', expiration)))
+        //}
         else {
           req.decoded = decoded;
           next();

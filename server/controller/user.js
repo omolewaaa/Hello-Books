@@ -1,4 +1,5 @@
 const express = require('express');
+
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
@@ -7,6 +8,9 @@ const jwt    = require('jsonwebtoken');
 const users = require('../models').user;
 const email = require('../models').user;
 const user = require('../models').user;
+const book = require('../models').book;
+const borrowBook = require('../models').borrowedbook;
+
 
 
 
@@ -46,8 +50,6 @@ exports.create = (req, res) => {
         
         else
         
-         // if (req.body.role !== "user")
-          //  res.status(400).send("You can either be user or admin")
         
           if (!validator.isAlpha(req.body.username)){
                res.status(400).send("Only letters are allowed as username")
@@ -64,7 +66,6 @@ exports.create = (req, res) => {
         user.create ({
         username: req.body.username,
         email: req.body.email,
-        role: req.body.role,
         password : bcrypt.hashSync((req.body.password), salt)
         })
           .then((user) => {
@@ -72,7 +73,6 @@ exports.create = (req, res) => {
         })
           .catch(error => res.status(400).send(error));
         
-    //}
        
       });
   
@@ -117,7 +117,7 @@ exports.login = (req, res) => {
       const token = jwt.sign({user
     },
       "omolewa", {
-          expiresIn: '3 days'
+          expiresIn: '60 minutes'
         });
 
         res.status(201).send({message:'logged in successfully', token:token});
@@ -132,11 +132,25 @@ exports.login = (req, res) => {
 }
 };
 
+
 //code for users to logout
-exports.logout = (req, res) => {
+//exports.logout = (req, res) => {
   
   //res.redirect('/api/users/signin');
   //res.status(200).send({message: "logged out successfully"});
-  res.redirect('/api/users/signin');
-  };
+ // res.redirect('/api/users/signin');
+ // };
 
+
+exports.logout = (req, res) => {
+  const userId = req.decoded.user.id;
+    user.findById(userId)
+      .then((user) => {
+        user.update({ active: false })
+          .then(() =>
+            res.status(200)
+              .send({
+                message: 'You have successfully logged out'
+              }));
+      });
+  }

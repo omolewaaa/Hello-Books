@@ -22,14 +22,14 @@ module.exports = (sequelize, DataTypes) => {
    },
   
 
-   /*role: {
+   role: {
       //allowNull: false,  
       type: DataTypes.ENUM,
       values: ['user', 'admin'],
-      //default: "user"
+      defaultValue: "user"
 
     },
-   */ 
+   
     },
    {
     classMethods: {
