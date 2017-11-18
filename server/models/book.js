@@ -1,10 +1,35 @@
-'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-  var book = sequelize.define('book', {
-    user_id: DataTypes.INTEGER,
-    bookName: DataTypes.STRING,
-    Author: DataTypes.STRING,
-    bookStatus: DataTypes.STRING
+  const book = sequelize.define('book', {
+    bookName: {
+    type: DataTypes.STRING,
+      allowNull: false,
+    },
+    Author: {
+    type: DataTypes.STRING,
+      allowNull: false,
+    },
+
+    bookStatus: {
+    type: DataTypes.STRING,
+      allowNull: false,
+    },
+
+    Details: {
+    type: DataTypes.TEXT,
+      allowNull: false,
+    },
+
+    upvotes: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    downvotes: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
   }, {
     classMethods: {
       associate: function(models) {

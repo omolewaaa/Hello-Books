@@ -3,6 +3,10 @@ const bookController = require('../controller/book');
 let verifyToken = require('../middleware/middleware');
 let verify = require('../middleware/admin');
 const borrowController = require('../controller/borrow');
+const reviewController = require('../controller/review');
+const favoritesController = require('../controller/favorites');
+
+
 
 
 module.exports = (app) => {
@@ -18,4 +22,8 @@ module.exports = (app) => {
   app.put('/api/book/:userId/borrow/:bookId', verifyToken, bookController.approveBook);
   app.get('/api/books', bookController.getAllBooks);
   app.post('/api/users/borrow/:bookId', verifyToken, borrowController.create);
+  app.post('/api/users/return/:bookId', verifyToken, borrowController.returnbook);
+  app.post('/api/users/review/:bookId', verifyToken, reviewController.create);
+  app.post('/api/users/:bookId/favbook', verifyToken, favoritesController.create);
+  app.get('/api/users/favorites', verifyToken, favoritesController.getFavorites);
 }

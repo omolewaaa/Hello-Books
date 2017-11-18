@@ -1,7 +1,7 @@
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const borrowedBook = sequelize.define('borrowedBook', {
+  const returnBook = sequelize.define('returnBook', {
     user_id: {
     type: DataTypes.INTEGER,
       allowNull: false,
@@ -12,12 +12,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
 
-   /* returnedStatus: {
+    /*returnedStatus: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
-    defaultValue: false,
+    defaultValue: true,
   },
-*/
+  */
+
   }, {
     classMethods: {
       associate: function(models) {
@@ -25,5 +26,5 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
-  return borrowedBook;
+  return returnBook;
 };

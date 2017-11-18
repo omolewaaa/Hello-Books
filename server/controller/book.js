@@ -38,7 +38,9 @@ exports.create = (req, res) => {
         else if(!req.body.bookStatus){
           res.status(400).send("Please the status of the book");
         }
-
+        else if(!req.body.Details){
+          res.status(400).send("Kindly give little details about the book");
+        }
         else
         
           if (!validator.isAlpha(req.body.bookName)){
@@ -53,6 +55,7 @@ exports.create = (req, res) => {
         bookName: req.body.bookName,
     	  Author : req.body.Author,
     	  bookStatus: req.body.bookStatus,
+        Details: req.body.Details,
     	  user_id: userId
         })
         .then((book) => {
@@ -82,8 +85,8 @@ exports.modify = (req, res) => {
       id: req.params.bookId,
     },
   })
-  .then((book) => {
-    if(!book){
+  .then((books) => {
+    if(!books){
       res.status(400).send({ status: false, message:'book not found'});
     }
 
@@ -94,7 +97,8 @@ exports.modify = (req, res) => {
     book.update ({
        bookName: req.body.bookName,
         Author : req.body.Author,
-        bookStatus: req.body.bookStatus, 
+        bookStatus: req.body.bookStatus,
+        Details: req.body.Details, 
       })
     
        if (req.body.bookStatus === "available" || req.body.bookStatus === "unavailable") {

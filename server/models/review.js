@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   var review = sequelize.define('review', {
     user_id: DataTypes.INTEGER,
     book_id: DataTypes.INTEGER,
-    review: DataTypes.STRING
+    review: DataTypes.TEXT
   }, {
     classMethods: {
       associate: function(models) {
