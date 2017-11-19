@@ -1,0 +1,28 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "omolewa1993",
+    "database": "hello_books",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "seederStorage":"sequelize",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "omolewa1993",
+    "database": "hello_books",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "wgbbacis",
+    "password": "IPhPVEuw71HBrhkSoWdzFWFXoRExmOPP",
+    "database": "wgbbacis",
+    "host": "baasu.db.elephantsql.com",
+    "port": 5432,
+    "dialect": "postgres",
+    "seederStorage":"sequelize"
+  }
+}
