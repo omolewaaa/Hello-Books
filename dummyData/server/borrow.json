@@ -1,0 +1,12 @@
+[
+{
+    "userId": 1,
+    "bookId": 1,
+    "borrowId": 1
+  },
+  {
+    "userId": 1,
+    "bookId": 5,
+    "borrowId": 2
+  }
+]
