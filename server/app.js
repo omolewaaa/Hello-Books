@@ -9,10 +9,10 @@ const path = require('path');
 
 const db = require('../server/models/index');
 
-if( 'NODE_ENV' !== 'test') {
+//if( 'NODE_ENV' !== 'test') {
 // Log requests to the console.
 app.use(logger('dev'));
-}
+//}
 
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(bodyParser.json());

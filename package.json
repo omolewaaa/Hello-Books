@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start:dev": "nodemon ./app/server/bin/www",
-    "test": "./node_modules/.bin/mocha app/server/test",
+    "test": "./node_modules/.bin/mocha dummyData/app/server/test",
     "start": "nodemon bin/server"
   },
   "repository": {
