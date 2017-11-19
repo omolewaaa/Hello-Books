@@ -15,7 +15,9 @@ app.use(bodyParser.json());
 
 module.exports = (app) => {
   app.get('/api', (req, res) => 
-  	res.json('Welcome to Hello-Books.'));
+
+    res.json('Welcome to Hello-Books.'));
+  	
 
 /**
  * @swagger
@@ -244,4 +246,3 @@ module.exports = (app) => {
   
 
   };
-
