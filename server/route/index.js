@@ -19,7 +19,7 @@ module.exports = (app) => {
   app.post('/api/users/signout', verifyToken, usersController.logout);
   app.post('/api/book/admin', verify, bookController.create);
   app.put('/api/book/admin/:bookId', verifyToken, bookController.modify);
-  app.put('/api/book/:userId/borrow/:bookId', verifyToken, bookController.approveBook);
+  app.put('/api/book/:userId/borrow/:bookId', verifyToken, bookController.approveBorrowBook);
   app.get('/api/books', bookController.getAllBooks);
   app.post('/api/users/borrow/:bookId', verifyToken, borrowController.create);
   app.post('/api/users/return/:bookId', verifyToken, borrowController.returnbook);

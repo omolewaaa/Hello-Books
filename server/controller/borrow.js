@@ -7,9 +7,12 @@ const borrowbook = require('../models').borrowedBook;
 const Returned = require('../models').returnBook;
 const bookReturn = require('../models').returnBook;
 
+//Endpoint to borrow a book
 exports.create = (req, res) => {
   const userId = req.decoded.user.id;
   const username = req.decoded.user.username;
+
+//To check the existence of a book
   book.findOne({
     where: {
       id: req.params.bookId,
@@ -20,12 +23,13 @@ exports.create = (req, res) => {
       res.status(400).send({ status: false, message:'book not found'});
     }
     else {
-      borrowbook.findOne({
+
+//To check if a user who borrowed a particular book has returned it in order to borrow it again
+  borrowbook.findOne({
     where: {
       user_id: userId,
       book_id: req.params.bookId,
-      //returnedStatus : false,
-      
+      //returnedStatus : false,  
     },
   })
   .then((borrowbook) => {
@@ -38,44 +42,42 @@ exports.create = (req, res) => {
   })
   .then((bookReturn) => {
 
-    //if((borrowbook !== bookReturn)){
-     // res.status(400).send({ status: false, message:'You have earlier made this request'});
-    //}
-   if((bookReturn !== borrowbook)){
+    if((bookReturn !== borrowbook)){
     //if(borrowbook !== bookReturn){
        res.status(400).send({ status: false, message:'You have earlier made this request'});
      }
        else{
       if (book.bookStatus !== "unavailable"){
 
-     borrow.create ({
-      book_id: req.params.bookId,
-      user_id: userId,
-     })
-     .then((borrow) => {
-       res.status(200).json({message: "Enjoy the book", "bookName": book.bookName, "borrower": username })
-     })
-     .catch(error => res.status(400).send(error));
+  borrow.create ({
+    book_id: req.params.bookId,
+    user_id: userId,
+  })
+  .then((borrow) => {
+    res.status(200).json({message: "Enjoy the book", "bookName": book.bookName, "borrower": username })
+  })
+  .catch(error => res.status(400).send(error));
     }
   
-  else{
-    res.status(400).json({message: "This book is currently unavailable"})
+    else{
+     res.status(400).json({message: "This book is currently unavailable"})
+    }
   }
-}
-//if((borrowbook !== bookReturn)){
-  //else{
-    //  res.status(400).send({ status: false, message:'You have earlier made this request'});
-   // }
-  //}
-})
-}
-});
-}
-});
+
+  })
+
+  }
+
+  });
+
+  }
+
+  });
+
 }
 
 
-
+//Endpoint for user to return book
 exports.returnbook = (req, res) => {
   const userId = req.decoded.user.id;
   const username = req.decoded.user.username;
@@ -89,6 +91,8 @@ exports.returnbook = (req, res) => {
       res.status(400).send({ status: false, message:'book not found'});
     }
     else {
+
+//To check if a user have actually borrowed the book to be returned
   borrowbook.findOne({
     where: {
       user_id: userId,
@@ -113,6 +117,6 @@ exports.returnbook = (req, res) => {
      .catch(error => res.status(400).send(error));
     };
   })
-}
-})
   }
+  })
+}

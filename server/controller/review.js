@@ -2,7 +2,7 @@ const express = require('express');
 const book = require('../models').book;
 const review = require('../models').review;
 
-
+//Endpoint for authenticated users to ggive reviews
 exports.create = (req, res) => {
 	const userId = req.decoded.user.id;
 

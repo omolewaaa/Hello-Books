@@ -12,7 +12,7 @@ const book = require('../models').book;
 const borrowBook = require('../models').borrowedbook;
 
 
-
+//Endpoint for users to register
 
 // To get uniqueness of username
 exports.create = (req, res) => {
@@ -69,7 +69,7 @@ exports.create = (req, res) => {
         password : bcrypt.hashSync((req.body.password), salt)
         })
           .then((user) => {
-            res.status(200).send({ status: true, message:'You are registered Successfully', "username": user.username, "email": user.email,  "role": user.role});
+            res.status(200).send({ status: true, message:'You are registered Successfully', "userId": user.id, "username": user.username, "email": user.email,  "role": user.role});
         })
           .catch(error => res.status(400).send(error));
         
@@ -97,14 +97,14 @@ exports.login = (req, res) => {
         
   if(!req.body.password){
     res.send("Please enter your password");
-    }
+  }
   else {
   user.findOne({
     where: {
       username: req.body.username,
     },
   })
-
+//To check if user already signup
   .then((user) => {
     if(!user){
       res.status(404).send({message:'User not found'});
@@ -126,20 +126,14 @@ exports.login = (req, res) => {
   
       else {
         res.status(404).send({message: "confirm username or password"})
-      }
+           }
       }
     });
-}
+  }
 };
 
 
-//code for users to logout
-//exports.logout = (req, res) => {
-  
-  //res.redirect('/api/users/signin');
-  //res.status(200).send({message: "logged out successfully"});
- // res.redirect('/api/users/signin');
- // };
+
 
 
 exports.logout = (req, res) => {

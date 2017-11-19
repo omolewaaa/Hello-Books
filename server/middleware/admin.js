@@ -12,16 +12,11 @@ module.exports = (req, res, next) => {
         else {
           req.decoded = decoded;
           const userId = decoded.id;
-        //  if (req.body.role === "admin")
           next();
       
           }
        
-    	//if (req.body.role !== "admin") {
-       //res.send(401, 'Unauthorized');
-  
-   // }
-
+    	
     });
       }
     else {
@@ -37,11 +32,3 @@ module.exports = (req, res, next) => {
 
 
 
-/*module.exports = (req, res, next) {
-      if (req.body.role === admin)
-      	req.decoded = decoded;
-        next();
-      else
-        res.send(401, 'Unauthorized');
-    }
-    */
