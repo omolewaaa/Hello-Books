@@ -22,6 +22,7 @@
     "database": "wgbbacis",
     "host": "baasu.db.elephantsql.com",
     "port": 5432,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "seederStorage":"sequelize"
   }
 }
