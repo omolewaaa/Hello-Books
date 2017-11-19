@@ -1,1 +1,1 @@
-web: node dummyData/bin/www
+web: node bin/server
