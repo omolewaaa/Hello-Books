@@ -36,11 +36,25 @@ https://omolewaaa.github.io/Hello-Books/
 
   
  **END POINT**
+
+ *   **Endpoints  for users to register**
  
+ 			POST: /api/v1/users/signup
+			Input : {username,email,password}
+
+ *   **Endpoints  for users to login**
+ 
+ 			POST: /api/v1/users/signin
+			Input : {username,password}
+
+ *   **Endpoints  for users to signout**
+ 
+ 			POST: /api/v1/users/signout
+		
  *   **Endpoints  to add a book and modify a book**
  
         	POST: /api/v1/books
-			Input : {bookName,Author,bookStatus}
+			Input : {bookName,Author,bookStatus,Details}
 		
 			PUT: /api/v1/books/:bookId
 			Input : {bookId}
