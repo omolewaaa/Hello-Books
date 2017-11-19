@@ -36,13 +36,27 @@ https://omolewaaa.github.io/Hello-Books/
 
   
  **END POINT**
+
+ *   **Endpoints  for users to register**
  
+ 			POST: /api/v1/users/signup
+			Input : {username,email,password}
+
+ *   **Endpoints  for users to login**
+ 
+ 			POST: /api/v1/users/signin
+			Input : {username,password}
+
+ *   **Endpoints  for users to signout**
+ 
+ 			POST: /api/v1/users/signout
+		
  *   **Endpoints  to add a book and modify a book**
  
-        	POST: /api/v1/books
-			Input : {bookName,Author,bookStatus}
+        	POST: /api/v1/book/admin
+			Input : {bookName,Author,bookStatus,Details}
 		
-			PUT: /api/v1/books/:bookId
+			PUT: /api/v1/book/admin/:bookId
 			Input : {bookId}
 				for example:  /api/v1/books/1			
 	
@@ -52,19 +66,19 @@ https://omolewaaa.github.io/Hello-Books/
    
  *   **Endpoints to borrow and return a book**
  
-        	POST: /api/v1/users/:userId/borrow/:bookId
-			Input : {userId,bookId}
-				for example:  /api/v1/users/1/borrow/1
+        	POST: /api/v1/users/borrow/:bookId
+			Input : {bookId}
+				for example:  /api/v1/users/borrow/1
 	
-        	POST: /api/v1/users/:userId/return/:bookId
-			Input : {userId,bookId}
-				for example:  /api/v1/users/1/return/1
+        	POST: /api/v1/users/return/:bookId
+			Input : {bookId}
+				for example:  /api/v1/users/return/1
    
  *   **Endpoints to accept/reject a request to borrow and return a book**
  
    			PUT: /api/v1/users/:userId/borrow/:bookId
 			
-				Input : {userId,bookId}
+				Input : {bookId}
 				for example:  /api/v1/users/1/borrow/1
 	
 	
@@ -76,23 +90,20 @@ https://omolewaaa.github.io/Hello-Books/
    
  *   **Endpoint to review a book**
  
-        	POST: /api/v1/users/:userId/review/:bookId
-			Input : {userId, review, bookId}
+        	POST: /api/v1/users/review/:bookId
+			Input : {review, bookId}
 	
  *   **Endpoint to mark a book as favorite**
  
-			POST: /api/v1/users/:userId/fav/:bookId
-				Input : {userId,bookId}
-				for example: /api/v1/users/1/fav/1
+			POST: /api/v1/users/fav/:bookId
+				Input : {bookId}
+				for example: /api/v1/users/fav/1
 	
    
  *   **Endpoint to get a user’s favorite books**
  
-        	GET: /api/v1/users/:userId/favbooks
-			Input : {userId,bookId}
-			for example: /api/v1/users/1/favbooks
-	
-		
+        	GET: /api/v1/users/favbooks
+			
 	
  *   **Endpoint to get books with the most upvotes**
  
