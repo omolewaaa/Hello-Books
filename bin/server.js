@@ -1,5 +1,5 @@
 const http = require('http');
-const app = require('../server/app.js'); // The express app we just created
+const app = require('../server/app'); // The express app we just created
 
 const db = require('../server/models/index');
 

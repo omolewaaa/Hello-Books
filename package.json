@@ -6,8 +6,8 @@
     "node": "6.10.3"
   },
   "scripts": {
-    "start:dev": "nodemon ./app/server/bin/www",
-    "test": "./node_modules/.bin/mocha dummyData/app/server/test",
+    "start:dev": "nodemon ./dummyData/server/bin/www",
+    "test": "./node_modules/.bin/mocha dummyData/server/test",
     "start": "sequelize db:migrate && sequelize db:seed:all && nodemon bin/server"
   },
   "repository": {
