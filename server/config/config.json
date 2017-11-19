@@ -17,10 +17,10 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "postgres",
-    "password": "omolewa1993",
-    "database": "hello_books",
-    "host": "127.0.0.1",
+    "username": "wgbbacis",
+    "password": "IPhPVEuw71HBrhkSoWdzFWFXoRExmOPP",
+    "database": "wgbbacis",
+    "host": "baasu.db.elephantsql.com:5432/wgbbacis",
     "port": 5432,
     "dialect": "postgres"
   }
