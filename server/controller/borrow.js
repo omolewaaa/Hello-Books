@@ -33,7 +33,7 @@ exports.create = (req, res) => {
     },
   })
   .then((borrowbook) => {
-    if (borrowbook){
+  //  if (borrowbook){
     bookReturn.findOne({
     where: {
       user_id: userId,
@@ -42,11 +42,11 @@ exports.create = (req, res) => {
   })
   .then((bookReturn) => {
 
-    if((bookReturn !== borrowbook)){
-    //if(borrowbook !== bookReturn){
-       res.status(400).send({ status: false, message:'You have earlier made this request'});
+    //if((bookReturn)){
+    if(borrowbook && (!bookReturn)){
+       res.status(400).send({ status: false, message:'You must return this book before you can borrow it again'});
      }
-       else{
+    else{
       if (book.bookStatus !== "unavailable"){
 
   borrow.create ({
@@ -63,10 +63,10 @@ exports.create = (req, res) => {
      res.status(400).json({message: "This book is currently unavailable"})
     }
   }
-
+ // }
   })
 
-  }
+  //}
 
   });
 
