@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start:dev": "nodemon ./dummyData/server/bin/www",
-    "test": "./node_modules/.bin/mocha dummyData/server/test",
+    "test": "./node_modules/.bin/mocha server/test",
     "start": "sequelize db:migrate && sequelize db:seed:all && node ./bin/server"
   },
   "repository": {
