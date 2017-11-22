@@ -11,6 +11,61 @@ chai.use(chaiHttp);
 
 describe('users', () => {
 
+it('it should not register a user when username field empty', (done) => {
+        let item = {
+            //username: "ire",
+            email: "oooooooooo@gmail.com",
+            password: "omo"
+      
+
+        };
+        chai.request(app)
+            .post('/api/v1/users/signup')
+            .send(item)
+            .end((err, res) => {
+                res.should.have.status(400);
+              done();
+            
+      });
+     });
+
+
+it('it should not register a user when email field empty', (done) => {
+        let item = {
+            username: "ire",
+            //email: "oooooooooo@gmail.com",
+            password: "omo"
+      
+
+        };
+        chai.request(app)
+            .post('/api/v1/users/signup')
+            .send(item)
+            .end((err, res) => {
+                res.should.have.status(400);
+              done();
+            
+      });
+     });
+
+it('it should not register a user when password not provided', (done) => {
+        let item = {
+            username: "ire",
+            email: "oooooooooo@gmail.com",
+            password: "omo"
+      
+
+        };
+        chai.request(app)
+            .post('/api/v1/users/signup')
+            .send(item)
+            .end((err, res) => {
+                res.should.have.status(400);
+              done();
+            
+      });
+     });
+
 it('it should not register a user when username already exist', (done) => {
         let item = {
             username: "ire",
