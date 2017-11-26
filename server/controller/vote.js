@@ -11,7 +11,6 @@ const votes = require('../models').vote;
 exports.create = (req, res) => {
   const userId = req.decoded.user.id;
   const username = req.decoded.user.username;
-  //const count = 1
 
 //To check the existence of a book
   book.findOne({
@@ -35,31 +34,26 @@ exports.create = (req, res) => {
    		if(vote){
    			if (req.body.voteType === "upVotes" || req.body.voteType === "downVotes") {
    			if (vote.voteType === req.body.voteType){
-   				res.status(400).send({message: 'You have already voted this book with this voteType' })
+   				res.status(400).send({message: `You have already  ${req.body.voteType} this book` })
    			}
    			else{
 
    				vote.update({ voteType: req.body.voteType })
    				.then((vote) => {
 
-   					//})
-
-   				let count = 1
-   				const up = books.upvotes = ++count;
   				if (req.body.voteType === "upVotes"){
-  					//books.update({ upvotes: ++count })
-
-  					books.upvotes =++count 
-  					//.then((books) => {
+  					
+  					book.increment('upvotes')
+  					book.decrement('downvotes')
 
   					res.status(200).send({message: "You have upvoted successfuly"})
-  				//})
   				}
   				else if (req.body.voteType === "downVotes"){
-  					books.downvotes =+ 1,
+  					book.increment('downvotes')
+            book.decrement('upvotes')
   					res.status(200).send({message: "You have downvoted this book successfuly"})
   				}
-  			//}
+  			
   			
   			})
    			}
@@ -76,19 +70,18 @@ exports.create = (req, res) => {
     		voteType: req.body.voteType
    			})
    			.then((votes) => {
-   				//if (req.body.voteType === "upVotes" || req.body.voteType === "downVotes"){
+   			
    				if (req.body.voteType === "upVotes"){
-  					//books.upvotes.increment('number')
+  					book.increment('upvotes')
   					res.status(200).send({message: "You have upvoted successfuly", data: votes})
-  					//books.upvotes =++count
   					
   				}
 
   				else if (req.body.voteType === "downVotes"){
-  					books.downvotes =+ 1,
+  					book.increment('downvotes')
   					res.status(200).send({message: "You have downvoted this book successfuly", data: votes})
   				}
-  				//}
+  			
    			})
    			.catch(error => res.status(400).send(error));
    		}
@@ -96,13 +89,9 @@ exports.create = (req, res) => {
    			return res.status(400).send({message: "You can either upvote or downvote"})
    		}
    		}
-   		
-   //	}
-
 
    	})
-	//}
-  // })
+	
 }
 
 })
