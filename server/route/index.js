@@ -5,6 +5,10 @@ let verify = require('../middleware/admin');
 const borrowController = require('../controller/borrow');
 const reviewController = require('../controller/review');
 const favoritesController = require('../controller/favorites');
+const votesController = require('../controller/vote');
+
+
+
 
 
 
@@ -327,4 +331,5 @@ module.exports = (app) => {
  *           $ref: '#/definitions/user'
  */
   app.get('/api/v1/users/favorites', verifyToken, favoritesController.getFavorites);
+  app.post('/api/v1/vote/:bookId', verifyToken, votesController.create);
 }
