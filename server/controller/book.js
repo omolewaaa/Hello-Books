@@ -102,9 +102,14 @@ exports.modify = (req, res) => {
         bookName: req.body.bookName,
         Author : req.body.Author,
         bookStatus: req.body.bookStatus,
-        Details: req.body.Details, 
+        Details: req.body.Details 
+        },
+        {
+        where:{
+      id: req.params.bookId
+    }
         })
-    
+
       if (req.body.bookStatus === "available" || req.body.bookStatus === "unavailable") {
       res.status(201).json({message:'book modified successfully', "data": req.body});
         }
