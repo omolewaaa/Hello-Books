@@ -8,7 +8,7 @@ const users = require('../models').user;
 const email = require('../models').user;
 const user = require('../models').user;
 const book = require('../models').book;
-const borrowBook = require('../models').borrowedbook;
+//const borrowBook = require('../models').borrowedbook;
 
 
 //Endpoint for users to register
