@@ -1,7 +1,7 @@
-const express = require('express');
-const logger = require('morgan');
-const bodyParser = require('body-parser');
-const swaggerJSDoc = require('swagger-jsdoc');
+import express from 'express';
+import logger from 'morgan';
+import bodyParser from 'body-parser';
+import swaggerJSDoc from 'swagger-jsdoc';
 
 // Set up the express app
 const app = express();
@@ -27,7 +27,7 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 //const Books = require('./models/book');
-const path = require('path');
+//const path = require('path');
 
 const db = require('../server/models/index');
 

@@ -1,11 +1,11 @@
-const express = require('express');
-const user = require('../models').user;
-const book = require('../models').book;
-const books = require('../models').book;
-const borrow = require('../models').borrowedBook;
-const borrowbook = require('../models').borrowedBook;
-const Returned = require('../models').returnBook;
-const bookReturn = require('../models').returnBook;
+import express from 'express';
+import user from '../models/user';
+import book from '../models/book';
+import books from '../models/book';
+import borrow from '../models/borrowedBook';
+import borrowbook from '../models/borrowedBook';
+import Returned from '../models/returnBook';
+import bookReturn from '../models/returnBook';
 
 //Endpoint to borrow a book
 exports.create = (req, res) => {

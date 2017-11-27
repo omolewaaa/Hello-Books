@@ -1,6 +1,6 @@
-const express = require('express');
-const book = require('../models').book;
-const review = require('../models').review;
+import express from 'express';
+import book from '../models/book';
+import review from '../models/review';
 
 //Endpoint for authenticated users to ggive reviews
 exports.create = (req, res) => {
@@ -26,7 +26,7 @@ exports.create = (req, res) => {
     		review: req.body.review,
     	})
     	.then((review) => {
-    		res.status(200).send({ status: false, message: 'Your review has been posted successfully'})
+    		res.status(200).send({ status: true, message: 'Your review has been posted successfully'})
     	})
     	.catch(error => res.status(400).send(error));
     }

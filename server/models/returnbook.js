@@ -11,20 +11,21 @@ module.exports = (sequelize, DataTypes) => {
      type: DataTypes.INTEGER,
       allowNull: false,
     },
-
-    /*returnedStatus: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: true,
-  },
-  */
-
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
+    });
+      returnBook.associate = (models) => {
+        returnBook.belongsTo(models.user, {
+          foreignKey: 'user_id',
+          onDelete: 'CASCADE',
+          as: 'user'
+        });
+        returnBook.belongsTo(models.book, {
+          foreignKey: 'book_id',
+          onDelete: 'CASCADE',
+          as: 'book'
+        });
+     
     }
-  });
   return returnBook;
 };
+
+
