@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start:dev": "nodemon ./dummyData/server/bin/www",
-    "test": "nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register server/test",
+    "test": "set NODE_ENV=test&& sequelize db:migrate&& nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register server/test",
     "start": "sequelize db:migrate && sequelize db:seed:all && babel-node ./bin/server",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
