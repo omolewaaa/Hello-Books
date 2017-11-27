@@ -2,10 +2,10 @@ import express from 'express';
 import user from '../models/user';
 import book from '../models/book';
 import books from '../models/book';
-import borrow from '../models/borrowedBook';
-import borrowbook from '../models/borrowedBook';
-import Returned from '../models/returnBook';
-import bookReturn from '../models/returnBook';
+import borrow from '../models/borrowedbook';
+import borrowbook from '../models/borrowedbook';
+import Returned from '../models/returnbook';
+import bookReturn from '../models/returnbook';
 
 //Endpoint to borrow a book
 exports.create = (req, res) => {
