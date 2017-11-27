@@ -91,11 +91,11 @@ exports.login = (req, res) => {
 
 
   if (!req.body.username){
-    res.send("Enter your username");
+    res.status(400).send("Enter your username");
   }
         
   if(!req.body.password){
-    res.send("Please enter your password");
+    res.status(400).send("Please enter your password");
   }
   else {
   user.findOne({
