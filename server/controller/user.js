@@ -1,10 +1,9 @@
-const express = require('express');
-
-const bcrypt = require('bcryptjs');
+import express from 'express';
+import bcrypt from 'bcryptjs';
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
-const validator = require('validator');
-const jwt    = require('jsonwebtoken');
+import validator from 'validator';
+import jwt  from 'jsonwebtoken';
 const users = require('../models').user;
 const email = require('../models').user;
 const user = require('../models').user;
@@ -138,13 +137,7 @@ exports.login = (req, res) => {
 
 exports.logout = (req, res) => {
   const userId = req.decoded.user.id;
-    user.findById(userId)
-      .then((user) => {
-        user.update({ active: false })
-          .then(() =>
-            res.status(200)
-              .send({
-                message: 'You have successfully logged out'
-              }));
-      });
+  const username = req.decoded.user.username;
+
+  return res.status(200).send({message: 'You have successfully logged out', user_id: userId, username: username});
   }

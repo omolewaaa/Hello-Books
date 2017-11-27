@@ -29,14 +29,27 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: "user"
 
     },
-   
-    },
-   {
-    classMethods: {
-      associate: (models) => {
+    });
+      user.associate = (models) => {
+        user.hasMany(models.borrowedBook, {
+          foreignKey: 'user_id',
+        });
+        user.hasMany(models.returnBook, {
+          foreignKey: 'user_id',
+        });
+        user.hasMany(models.favorites, {
+          foreignKey: 'user_id',
+        });
+        user.hasMany(models.review, {
+          foreignKey: 'user_id',
+          as: 'review'
+        });
+        user.hasMany(models.vote, {
+          foreignKey: 'user_id',
+        });
   
-     },
-    }, 
-  });
+     }
   return user;
 };
+
+

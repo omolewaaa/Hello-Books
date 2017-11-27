@@ -10,8 +10,8 @@ const swaggerDefinition = {
     
     description: 'Welcome to Hello-Books',
   },
-  //host: 'localhost:8000',
-  //basePath: '/',
+  host: 'localhost:8000',
+  basePath: '/',
 };
 
 // options for the swagger docs
@@ -19,7 +19,7 @@ const options = {
   // import swaggerDefinitions
   swaggerDefinition: swaggerDefinition,
   // path to the API docs
-  apis: ['./dummyData/server/route/index.js'],
+  apis: ['./app/server/route/index.js'],
 };
 
 // initialize swagger-jsdoc
@@ -32,7 +32,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/swagger.json', function(req, res) {
+app.get('*', function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
 });
@@ -43,3 +43,5 @@ app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to Hello-Books.'}));
 
 module.exports = app;
+
+

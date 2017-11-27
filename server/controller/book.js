@@ -1,11 +1,13 @@
-const express = require('express');
-const validator = require('validator');
+import express from 'express';
+import validator from 'validator';
 const user = require('../models').user;
 const book = require('../models').book;
 const books = require('../models').book;
 const borrow = require('../models').borrowedBook;
 const userborrow = require('../models').borrowedBook;
 const bookborrow = require('../models').borrowedBook;
+const returnedBook = require('../models').returnBook;
+
 
 
 
@@ -15,17 +17,17 @@ exports.create = (req, res) => {
   const name = req.decoded.user.role
 
 //To restrict users to access the endpoint except the admin
-    if(name !== "admin"){
-      res.status(400).send({ status: false, message:'Unauthorised'});
+    if (name !== "admin"){
+      return res.status(400).send({ status: false, message:'Unauthorised'});
     }
 
-    books.findOne({
+   books.findOne({
     where: {
       bookName: req.body.bookName,
     },
   })
   .then((books) => {
-    if(books){
+    if (books){
       res.status(400).send({ status: false, message:'This book has been added'});
     }
 
@@ -61,7 +63,7 @@ exports.create = (req, res) => {
         })
         .then((book) => {
             res.status(200).send({ status: true, message:'You are registered Successfully', "bookId": book.id, "bookName": book.bookName, "Author": book.Author, 
-             "bookStatus": book.bookStatus, name});
+             "bookStatus": book.bookStatus, "Details": book.Details, name});
         })
         .catch(error => res.status(400).send(error));
       }
@@ -100,9 +102,14 @@ exports.modify = (req, res) => {
         bookName: req.body.bookName,
         Author : req.body.Author,
         bookStatus: req.body.bookStatus,
-        Details: req.body.Details, 
+        Details: req.body.Details 
+        },
+        {
+        where:{
+      id: req.params.bookId
+    }
         })
-    
+
       if (req.body.bookStatus === "available" || req.body.bookStatus === "unavailable") {
       res.status(201).json({message:'book modified successfully', "data": req.body});
         }
@@ -214,4 +221,58 @@ exports.approveBorrowBook = (req, res) => {
   }
   })
 
+}
+
+
+
+exports.acceptReturnedBook = (req, res) => {
+  const userId = req.decoded.user.id;
+  const name = req.decoded.user.role;
+
+//To restrict users to access the endpoint except the admin
+  if(name !== "admin"){
+      res.status(400).send({ status: false, message:'Unauthorised'});
+    }
+
+//To check if the user is existing
+  user.findOne({
+    where: {
+      id: req.params.userId,
+    },
+  })
+  .then((user) => {
+    if(!user){
+      res.status(400).send({ status: false, message:'user not found'});
+    }
+    else{
+
+//To check if the book is existing
+  book.findOne({
+    where: {
+      id: req.params.bookId,
+    },
+  })
+  .then((book) => {
+    if(!book){
+      res.status(400).send({ status: false, message:'book not found'});
+    }
+    else{
+  returnedBook.findOne({
+    where: {
+      user_id: req.params.userId,
+      book_id: req.params.bookId
+    }
+  })
+  .then((returnedBook) =>{
+    if(returnedBook){
+      res.status(200).send({message: "Returned book accepted"})
+    }
+    else{
+      res.status(400).send({message: "This book has not been returned"})
+    }
+  })
+    }
+  })
+    }
+  })
 }

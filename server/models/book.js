@@ -30,12 +30,23 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0,
     },
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
+   });
+    book.associate = (models) => {
+      book.hasMany(models.borrowedBook, {
+        foreignKey: 'book_id',
+      });
+      book.hasMany(models.returnBook, {
+        foreignKey: 'book_id',
+      });
+      book.hasMany(models.review, {
+        foreignKey: 'book_id',
+        as: 'review'
+      });
+      book.hasMany(models.vote, {
+        foreignKey: 'book_id',
+      })
     }
-  });
+    
   return book;
 };
+
