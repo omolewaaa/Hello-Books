@@ -1,8 +1,8 @@
-const express = require('express');
-const user = require('../models').user;
-const book = require('../models').book;
-const favorites = require('../models').favorites;
-const favorite = require('../models').favorites;
+import express from 'express';
+import user from '../models/user';
+import book from '../models/book';
+import favorites from '../models/favorites';
+import favorite from '../models/favorites';
 
 //Endpoints to make a book as favorites
 exports.create = (req, res) => {

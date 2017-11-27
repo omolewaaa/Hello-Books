@@ -1,9 +1,9 @@
-const express = require('express');
-const user = require('../models').user;
-const book = require('../models').book;
-const books = require('../models').book;
-const vote = require('../models').vote;
-const votes = require('../models').vote;
+import express from 'express';
+import user from '../models/user';
+import book from '../models/book';
+import books from '../models/book';
+import vote from '../models/vote';
+import votes from '../models/vote';
 
 
 

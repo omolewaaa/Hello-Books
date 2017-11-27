@@ -1,5 +1,5 @@
-const express = require('express');
-const validator = require('validator');
+import express from 'express';
+import validator from 'validator';
 const user = require('../models').user;
 const book = require('../models').book;
 const books = require('../models').book;
@@ -17,17 +17,17 @@ exports.create = (req, res) => {
   const name = req.decoded.user.role
 
 //To restrict users to access the endpoint except the admin
-    if(name !== "admin"){
-      res.status(400).send({ status: false, message:'Unauthorised'});
+    if (name !== "admin"){
+      return res.status(400).send({ status: false, message:'Unauthorised'});
     }
 
-    books.findOne({
+   books.findOne({
     where: {
       bookName: req.body.bookName,
     },
   })
   .then((books) => {
-    if(books){
+    if (books){
       res.status(400).send({ status: false, message:'This book has been added'});
     }
 
