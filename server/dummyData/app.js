@@ -10,8 +10,8 @@ const swaggerDefinition = {
     
     description: 'Welcome to Hello-Books',
   },
-  //host: 'localhost:8000',
-  //basePath: '/',
+  host: 'localhost:8000',
+  basePath: '/',
 };
 
 // options for the swagger docs
