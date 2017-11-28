@@ -4,6 +4,7 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let app = require('../app');
 let should = chai.should();
+import expect from 'chai'
 
 chai.use(chaiHttp);
 
@@ -29,6 +30,27 @@ it('it should not post a book when not an admin', (done) => {
       });
      });
   
+
+it('it should post a book if admin', (done) => {
+        let item = {
+            bookName: "The Lord of the Rings",
+            Author: "J.R.R. Tolkien",
+            bookStatus: "available",
+            Details: "A great book to read",
+            upvotes: 0,
+            downvotes:0,
+
+        };
+
+        chai.request(app)
+            .post('/api/v1/book/admin')
+            .send(item)
+            .end((err, res) => {
+                res.should.have.status(403);
+              done();
+            
+      });
+     });
  
 it('it should not put a book when book not found ', (done) => {
         let item = {
@@ -62,7 +84,7 @@ it('it should GET all the books', (done) => {
 it('it should not register a user when username field empty', (done) => {
         let item = {
             //username: "ire",
-            email: "oooooooooo@gmail.com",
+            email: "ire@gmail.com",
             password: "omo"
       
 
@@ -80,7 +102,7 @@ it('it should not register a user when username field empty', (done) => {
 
 it('it should not register a user when email field empty', (done) => {
         let item = {
-            username: "ire",
+            username: "irew",
             //email: "oooooooooo@gmail.com",
             password: "omo"
       
@@ -98,9 +120,9 @@ it('it should not register a user when email field empty', (done) => {
 
 it('it should not register a user when password not provided', (done) => {
         let item = {
-            username: "ire",
-            email: "oooooooooo@gmail.com",
-            password: "omo"
+            username: "iree",
+            email: "oolo@gmail.com",
+            //password: "omo"
       
 
         };
@@ -151,10 +173,64 @@ it('it should not register a user when email already exist', (done) => {
       });
      });
 
+it('it should not register email is not valid', (done) => {
+        let item = {
+            username: "wumm",
+            email: "ewagmail.com",
+            password: "omo"
+            //role:  "user"
+
+        };
+        chai.request(app)
+            .post('/api/v1/users/signup')
+            .send(item)
+            .end((err, res) => {
+                res.should.have.status(400);
+              done();
+            
+      });
+     });
+
+it('it should not register username is not alphabet', (done) => {
+        let item = {
+            username: "1",
+            email: "ew@gmail.com",
+            password: "omo"
+            //role:  "user"
+
+        };
+        chai.request(app)
+            .post('/api/v1/users/signup')
+            .send(item)
+            .end((err, res) => {
+                res.should.have.status(400);
+              done();
+            
+      });
+     });
+
+it('it should register when inputs are right', (done) => {
+        let item = {
+            username: "omowumi",
+            email: "omowumi@gmail.com",
+            password: "omo"
+            //role:  "user"
+
+        };
+        chai.request(app)
+            .post('/api/v1/users/signup')
+            .send(item)
+            .end((err, res) => {
+                res.should.have.status(400);
+              done();
+            
+      });
+     });
+
 it('it should login a user when inputs are right', (done) => {
         let item = {
             username: "John",
-            email: "johnDoe@gmail.com",
+            //email: "johnDoe@gmail.com",
             password: "johnDoe"
 
         };
@@ -162,8 +238,11 @@ it('it should login a user when inputs are right', (done) => {
             .post('/api/v1/users/signin')
             .send(item)
             .end((err, res) => {
-                res.should.have.status(201);
-              done();
+                res.should.have.status(201); 
+                token = jwt.sign({user}, omolewa, { expiresIn: '60 minutes' });
+                expect(res.body.token).to.be.a('string');
+                //res.should.have.send(token);
+              done(error);
             
       });
      });
@@ -204,6 +283,39 @@ it('it should not login when user does not exist', (done) => {
       });
      });
  
+ it('it should not login when username not provided', (done) => {
+        let item = {
+            //username: "wumi",
+            //email: "ire@gmail.com",
+            password: "oooooooooo"
+
+        };
+        chai.request(app)
+            .post('/api/v1/users/signin')
+            .send(item)
+            .end((err, res) => {
+                res.should.have.status(400);
+              done();
+            
+      });
+     });
+
+ it('it should not login when password not provided', (done) => {
+        let item = {
+            username: "omowumi",
+            //email: "ire@gmail.com",
+            //password: "oooooooooo"
+
+        };
+        chai.request(app)
+            .post('/api/v1/users/signin')
+            .send(item)
+            .end((err, res) => {
+                res.should.have.status(400);
+              done();
+            
+      });
+     });
 
     after(() => {
            process.exit(0)
