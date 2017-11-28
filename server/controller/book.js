@@ -116,9 +116,7 @@ exports.getAllBooks = (req, res) => {
   book.findAll({
     include: [{ all: true }]
   })
-    .then(() => {
-      res.json(book);
-    });
+    .then(books => res.json(books));
 };
 
 
