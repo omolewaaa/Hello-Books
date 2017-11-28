@@ -8,17 +8,17 @@ const app = express();
 
 const swaggerDefinition = {
   info: {
-    
+
     description: 'Welcome to Hello-Books',
   },
-  //host: 'localhost:3000',
-  //basePath: '/',
+  // host: 'localhost:3000',
+  // basePath: '/',
 };
 
 // options for the swagger docs
 const options = {
   // import swaggerDefinitions
-  swaggerDefinition: swaggerDefinition,
+  swaggerDefinition,
   // path to the API docs
   apis: ['./server/route/index.js'],
 };
@@ -26,30 +26,29 @@ const options = {
 // initialize swagger-jsdoc
 const swaggerSpec = swaggerJSDoc(options);
 
-//const Books = require('./models/book');
-//const path = require('path');
+// const Books = require('./models/book');
+// const path = require('path');
 
-const db = require('../server/models/index');
+// const db = require('../server/models/index');
 
-if( 'NODE_ENV' !== 'test') {
+if ('NODE_ENV' !== 'test') {
 // Log requests to the console.
-app.use(logger('dev'));
+  app.use(logger('dev'));
 }
 
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/swagger.json', function(req, res) {
+app.get('/swagger.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
 });
 
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 require('../server/route')(app);
-app.get('*', (req, res) => res.status(200).send({
-  message: 'Welcome to Hello-Books Application.'}));
+
+app.get('*', (req, res) => res.status(200).send({ message: 'Welcome to Hello-Books Application.' }));
 
 module.exports = app;
-
 
