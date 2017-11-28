@@ -239,7 +239,7 @@ it('it should login a user when inputs are right', (done) => {
             .send(item)
             .end((err, res) => {
                 res.should.have.status(201); 
-                //token = jwt.sign({user}, omolewa, { expiresIn: '60 minutes' });
+                token = jwt.sign({user}, omolewa, { expiresIn: '60 minutes' });
                 expect(res.body.token).to.be.a('string');
                 //res.should.have.send(token);
               done(error);
