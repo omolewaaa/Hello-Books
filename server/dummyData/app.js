@@ -7,9 +7,11 @@ const app = express();
 
 const swaggerDefinition = {
   info: {
-    
+
     description: 'Welcome to Hello-Books',
   },
+  // host: 'localhost:8000',
+  // basePath: '/',
   host: 'localhost:8000',
   basePath: '/',
 };
@@ -17,7 +19,7 @@ const swaggerDefinition = {
 // options for the swagger docs
 const options = {
   // import swaggerDefinitions
-  swaggerDefinition: swaggerDefinition,
+  swaggerDefinition,
   // path to the API docs
   apis: ['./app/server/route/index.js'],
 };
@@ -32,16 +34,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('*', function(req, res) {
+app.get('*', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
 });
 
 // Setup a default catch-all route that sends back a welcome message in JSON format.
-require('../server/route')(app);
-app.get('*', (req, res) => res.status(200).send({
-  message: 'Welcome to Hello-Books.'}));
+require('../route')(app);
+
+app.get('*', (req, res) => res.status(200).send({ message: 'Welcome to Hello-Books.' }));
 
 module.exports = app;
-
 
