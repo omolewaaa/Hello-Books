@@ -9,6 +9,8 @@ const {
 
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
+// const book = require('../models').book;
+// const borrowBook = require('../models').borrowedbook;
 
 
 // Endpoint for users to register
