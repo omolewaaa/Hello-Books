@@ -48,8 +48,9 @@ app.get('/swagger.json', (req, res) => {
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 require('../server/route')(app);
 
-app.get('*', (req, res) => res.status(200)
-  .send({ message: 'Welcome to Hello-Books Application.', }));
+app.get('*', (req, res) => res.status(200).send({
+  message: 'welcome to hello-Books application.',
+}));
 
 module.exports = app;
 
