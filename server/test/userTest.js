@@ -10,7 +10,6 @@ const user = require('../models/user')
 
 chai.use(chaiHttp);
 
-
 describe('users', () => {
   it('it should not register a user when username field empty', (done) => {
     const item = {
