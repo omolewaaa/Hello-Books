@@ -114,6 +114,7 @@ exports.modify = (req, res) => {
 // Endpoint to get all the books in the database
 exports.getAllBooks = (req, res) => {
   book.findAll({
+    order: [['upvotes', 'DESC']],
     include: [{ all: true }]
   })
     .then(books => res.json(books));
