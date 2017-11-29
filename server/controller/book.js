@@ -51,7 +51,7 @@ exports.create = (req, res) => {
             .then(() => {
               res.status(200).send({
                 status: true,
-                message: 'You are registered Successfully',
+                message: 'Book registered Successfully',
                 bookId: book.id,
                 bookName: book.bookName,
                 Author: book.Author,
