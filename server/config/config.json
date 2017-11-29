@@ -17,12 +17,15 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "wgbbacis",
-    "password": "IPhPVEuw71HBrhkSoWdzFWFXoRExmOPP",
-    "database": "wgbbacis",
+    "username": "gmjkmslx",
+    "password": "lijdTajZnn3PrzvZonwH68LB2tFSjpiU",
+    "database": "gmjkmslx",
     "host": "baasu.db.elephantsql.com",
     "port": 5432,
     "dialect": "postgres",
     "seederStorage":"sequelize"
   }
 }
+
+
+
