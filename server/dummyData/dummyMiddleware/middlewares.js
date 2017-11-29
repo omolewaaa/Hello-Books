@@ -1,11 +1,7 @@
+// const users = require('../user');
+const jwt = require('jsonwebtoken');
+// const books = require('../book');
 
-import jwt from 'jsonwebtoken';
-// import models from '../models';
-
-/* const {
-  user
-} = models;
-*/
 module.exports = (req, res, next) => {
   const token = (req.body['x-access-token']) || (req.headers['x-access-token']) || (req.query['x-access-token']);
 
@@ -16,14 +12,13 @@ module.exports = (req, res, next) => {
       }
 
       req.decoded = decoded;
-      // const userId = decoded.id;
       next();
     });
-  } else {
-    return res.status(403).send({
-      success: false,
-      message: 'No token provided.'
-    });
   }
+  // else {
+  // return res.status(403).send({
+  // success: false,
+  // message: 'No token provided.'
+  // });
+  // }
 };
-

@@ -1,14 +1,18 @@
+
 // let Book = require('../models/book');
 
-const chai = require('chai');
+import chai from 'chai';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
 const chaiHttp = require('chai-http');
 const app = require('../app');
+const user = require('../models/user')
 
-const should = chai.should();
-import expect from 'chai';
+
+// const should = chai.should();
 
 chai.use(chaiHttp);
-
 
 describe('users', () => {
   it('it should not register a user when username field empty', (done) => {
@@ -48,9 +52,11 @@ describe('users', () => {
 
   it('it should not register a user when password not provided', (done) => {
     const item = {
+
       username: 'iree',
       email: 'oolo@gmail.com',
       // password: "omo"
+
 
 
     };
@@ -67,7 +73,10 @@ describe('users', () => {
     const item = {
       username: 'ire',
       email: 'oooooooooo@gmail.com',
+
       password: 'omo',
+
+      
 
 
     };
@@ -85,6 +94,7 @@ describe('users', () => {
     const item = {
       username: 'wummy',
       email: 'ewa@gmail.com',
+
       password: 'omo',
       // role:  "user"
 
@@ -137,6 +147,7 @@ describe('users', () => {
       username: 'omowumi',
       email: 'omowumi@gmail.com',
       password: 'omo',
+
       // role:  "user"
 
     };
@@ -152,8 +163,10 @@ describe('users', () => {
   it('it should login a user when inputs are right', (done) => {
     const item = {
       username: 'John',
+
       // email: "johnDoe@gmail.com",
       password: 'johnDoe',
+
 
     };
     chai.request(app)
@@ -161,9 +174,11 @@ describe('users', () => {
       .send(item)
       .end((err, res) => {
         res.should.have.status(201);
+
         // token = jwt.sign({user}, omolewa, { expiresIn: '60 minutes' });
         // expect(res.body.token).to.be.a('string');
         // res.should.have.send(token);
+
         done();
       });
   });
@@ -172,8 +187,10 @@ describe('users', () => {
   it('it should not login when password does not match', (done) => {
     const item = {
       username: 'irewumi',
-      // email: "ire@gmail.com",
+      // email: "iret
       password: 'oooooooooo',
+
+      
 
     };
     chai.request(app)
@@ -190,6 +207,7 @@ describe('users', () => {
     const item = {
       username: 'wumi',
       // email: "ire@gmail.com",
+
       password: 'oooooooooo',
 
     };
@@ -201,6 +219,7 @@ describe('users', () => {
         done();
       });
   });
+
 
   it('it should not login when username not provided', (done) => {
     const item = {
@@ -356,6 +375,79 @@ describe('users', () => {
 
       .end((err, res) => {
         res.should.have.status(403);
+
+  it('it should post a book', (done) => {
+    const userData = {
+      username: 'gift',
+      password: 'chick',
+      email: 'chick@gmail.com',
+      role: 'admin'
+    };
+
+    const bookData = {
+      user_id: 1,
+      bookName: 'fish',
+      Author: 'james',
+      bookStatus: 'available',
+      Details: 'fanstastic book'
+    };
+    user.create(userData).then(() => {
+      const token = jwt.sign(
+        { user },
+        'omolewa', {
+          expiresIn: '60 minutes'
+        }
+      );
+      chai.request(app)
+        .post('/api/v1/book/admin')
+        .send(bookData)
+        .set('Headers', token)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
+
+
+  // it('it should login a user when inputs are right', (done) => {
+  const item = {
+    username: 'John',
+    email: 'johnDoe@gmail.com',
+    password: 'johnDoe'
+
+  };
+  chai.request(app)
+    .post('/api/v1/users/signin')
+    .send(item);
+  const token = jwt.sign(
+    { user },
+    'omolewa', {
+      expiresIn: '60 minutes'
+    }
+  );
+  // .end((err, res) => {
+  // res.should.have.status(201);
+  // done();
+  // });
+  // });
+
+  it('it should post if bookName empty', (done) => {
+    const bookData = {
+      // user_id: 1,
+      // bookName: 'fish',
+      Author: 'james',
+      bookStatus: 'available',
+      Details: 'fanstastic book'
+    };
+    chai.request(app)
+      .post('/api/v1/book/admin')
+      .send(bookData)
+      .set('Accept', 'application/json')
+      .set('Authorization', token)
+      .end((err, res) => {
+        res.should.have.status(400);
+
         done();
       });
     // });

@@ -2,21 +2,21 @@
 module.exports = (sequelize, DataTypes) => {
   const book = sequelize.define('book', {
     bookName: {
-    type: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     Author: {
-    type: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
 
     bookStatus: {
-    type: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
 
     Details: {
-    type: DataTypes.TEXT,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
 
@@ -30,23 +30,23 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0,
     },
-   });
-    book.associate = (models) => {
-      book.hasMany(models.borrowedBook, {
-        foreignKey: 'book_id',
-      });
-      book.hasMany(models.returnBook, {
-        foreignKey: 'book_id',
-      });
-      book.hasMany(models.review, {
-        foreignKey: 'book_id',
-        as: 'review'
-      });
-      book.hasMany(models.vote, {
-        foreignKey: 'book_id',
-      })
-    }
-    
+  });
+  book.associate = (models) => {
+    book.hasMany(models.borrowedBook, {
+      foreignKey: 'book_id',
+    });
+    book.hasMany(models.returnBook, {
+      foreignKey: 'book_id',
+    });
+    book.hasMany(models.review, {
+      foreignKey: 'book_id',
+      as: 'review'
+    });
+    book.hasMany(models.vote, {
+      foreignKey: 'book_id',
+    });
+  };
+
   return book;
 };
 
