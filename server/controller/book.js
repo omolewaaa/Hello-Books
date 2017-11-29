@@ -60,7 +60,7 @@ class BookController {
               .then((createbook) => {
                 res.status(200).send({
                   status: true,
-                  message: 'You are registered Successfully',
+                  message: 'Book registered Successfully',
                   createbook,
                   bookId: book.id,
                   bookName: book.bookName,
