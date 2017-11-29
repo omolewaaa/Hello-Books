@@ -16,7 +16,13 @@ module.exports = (req, res, next) => {
       }
 
       req.decoded = decoded;
-      // const userId = decoded.id;
+      const {
+
+        role
+      } = decoded.role;
+      if (role !== 'admin') {
+        return res.status(403).send({ message: 'unauthorised' });
+      }
       next();
     });
   } else {

@@ -174,7 +174,7 @@ module.exports = (app) => {
  *       200:
  *         description: Book Approved
  */
-  app.put('/api/v1/book/:userId/borrow/:bookId', verifyToken, bookController.approveBorrowBook);
+  app.put('/api/v1/book/:userId/borrow/:bookId', verify, bookController.approveBorrowBook);
 
   /**
  * @swagger

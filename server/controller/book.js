@@ -124,14 +124,14 @@ exports.getAllBooks = (req, res) => {
 // Endpoint for admin to approve/reject request to borrow book
 exports.approveBorrowBook = (req, res) => {
   // const userId = req.decoded.user.id;
-  const name = req.decoded.user.role;
+  // const name = req.decoded.user.role;
 
   // To restrict users to access the endpoint except the admin
-  if (name !== 'admin') {
-    res.status(400).send({ status: false, message: 'Unauthorised' });
-  }
+  // if (name !== 'admin') {
+  //  res.status(400).send({ status: false, message: 'Unauthorised' });
+// };
 
-  // To check if the user is existing
+// To check if the user is existing
   user.findOne({
     where: {
       id: req.params.userId,
@@ -141,7 +141,7 @@ exports.approveBorrowBook = (req, res) => {
       if (!user) {
         res.status(400).send({ status: false, message: 'user not found' });
       } else {
-        // To check if the book is existing
+      // To check if the book is existing
         book.findOne({
           where: {
             id: req.params.bookId,
@@ -151,7 +151,7 @@ exports.approveBorrowBook = (req, res) => {
             if (!book) {
               res.status(400).send({ status: false, message: 'book not found' });
             } else {
-              // To check if a user has made any request to borrow book
+            // To check if a user has made any request to borrow book
               borrow.findOne({
                 where: {
                   user_id: req.params.userId,
@@ -161,7 +161,7 @@ exports.approveBorrowBook = (req, res) => {
                   if (!borrow) {
                     res.status(400).send({ message: 'This user has no request to borrow book' });
                   } else {
-                    // To check if any request has been made on a book
+                  // To check if any request has been made on a book
                     borrow.findOne({
                       where: {
                         book_id: req.params.bookId,
@@ -171,7 +171,7 @@ exports.approveBorrowBook = (req, res) => {
                         if (!borrow) {
                           res.status(400).send({ message: 'No request on this book' });
                         } else {
-                          // To check if a user has requested for the specific book
+                        // To check if a user has requested for the specific book
                           borrow.findOne({
                             where: {
                               book_id: req.params.bookId,
@@ -182,7 +182,7 @@ exports.approveBorrowBook = (req, res) => {
                               if (!borrow) {
                                 res.status(400).send({ status: false, message: 'This user has not requested for this particular book' });
                               } else {
-                                // To check if the status of a book whether its available or not
+                              // To check if the status of a book whether its available or not
                                 if (book.bookStatus !== 'unavailable') {
                                   return res.status(200).json({ message: 'Approved to borrow', bookName: book.bookName, bookId: book.id });
                                 }
