@@ -1,7 +1,7 @@
 
 
 module.exports = (sequelize, DataTypes) => {
-  const returnBook = sequelize.define('returnBook', {
+  const ReturnBook = sequelize.define('ReturnBook', {
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -12,18 +12,18 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
-  returnBook.associate = (models) => {
-    returnBook.belongsTo(models.user, {
+  ReturnBook.associate = (models) => {
+    ReturnBook.belongsTo(models.User, {
       foreignKey: 'user_id',
       onDelete: 'CASCADE',
       as: 'user'
     });
-    returnBook.belongsTo(models.book, {
+    ReturnBook.belongsTo(models.Book, {
       foreignKey: 'book_id',
       onDelete: 'CASCADE',
       as: 'book'
     });
   };
-  return returnBook;
+  return ReturnBook;
 };
 

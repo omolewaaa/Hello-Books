@@ -3,25 +3,19 @@ import validator from 'validator';
 import models from '../models';
 
 const {
-  user, book, borrow, returnedBook
+  User, Book, BorrowedBook, ReturnBook
 } = models;
 
 // Endpoint to add book
 exports.create = (req, res) => {
-  const userId = req.decoded.user.id;
-  const name = req.decoded.user.role;
+  const userId = req.decoded.foundUser.id;
 
-  // To restrict users to access the endpoint except the admin
-  if (name !== 'admin') {
-    return res.status(400).send({ status: false, message: 'Unauthorised' });
-  }
-
-  book.findOne({
+  Book.findOne({
     where: {
       bookName: req.body.bookName,
     },
   })
-    .then(() => {
+    .then((book) => {
       if (book) {
         res.status(400).send({ status: false, message: 'This book has been added' });
       } else {
@@ -41,14 +35,14 @@ exports.create = (req, res) => {
 
 
         if (req.body.bookStatus === 'available' || req.body.bookStatus === 'unavailable') {
-          book.create({
+          Book.create({
             bookName: req.body.bookName,
             Author: req.body.Author,
             bookStatus: req.body.bookStatus,
             Details: req.body.Details,
             user_id: userId
           })
-            .then(() => {
+            .then((createbook) => {
               res.status(200).send({
                 status: true,
                 message: 'You are registered Successfully',
@@ -57,8 +51,8 @@ exports.create = (req, res) => {
                 Author: book.Author,
                 bookStatus: book.bookStatus,
                 Details: book.Details,
-                name
               });
+              // }
             })
             .catch(error => res.status(400).send(error));
         } else {
@@ -72,19 +66,14 @@ exports.create = (req, res) => {
 // Enpoint to update book
 exports.modify = (req, res) => {
   // const userId = req.decoded.user.id;
-  const name = req.decoded.user.role;
 
-  // To restrict users to access the endpoint except the admin
-  if (name !== 'admin') {
-    res.status(400).send({ status: false, message: 'Unauthorised' });
-  }
   // To check if the book is existing
-  book.findOne({
+  Book.findOne({
     where: {
       id: req.params.bookId,
     },
   })
-    .then(() => {
+    .then((book) => {
       if (!book) {
         res.status(400).send({ status: false, message: 'book not found' });
       } else {
@@ -113,78 +102,73 @@ exports.modify = (req, res) => {
 
 // Endpoint to get all the books in the database
 exports.getAllBooks = (req, res) => {
-  book.findAll({
+  Book.findAll({
     order: [['upvotes', 'DESC']],
     include: [{ all: true }]
   })
-    .then(books => res.json(books));
+    .then(Book => res.json(Book));
 };
 
 
 // Endpoint for admin to approve/reject request to borrow book
 exports.approveBorrowBook = (req, res) => {
   // const userId = req.decoded.user.id;
-  const name = req.decoded.user.role;
 
-  // To restrict users to access the endpoint except the admin
-  if (name !== 'admin') {
-    res.status(400).send({ status: false, message: 'Unauthorised' });
-  }
 
   // To check if the user is existing
-  user.findOne({
+  User.findOne({
     where: {
       id: req.params.userId,
     },
   })
-    .then(() => {
+    .then((user) => {
       if (!user) {
         res.status(400).send({ status: false, message: 'user not found' });
       } else {
         // To check if the book is existing
-        book.findOne({
+        Book.findOne({
           where: {
             id: req.params.bookId,
           },
         })
-          .then(() => {
+          .then((book) => {
             if (!book) {
               res.status(400).send({ status: false, message: 'book not found' });
             } else {
               // To check if a user has made any request to borrow book
-              borrow.findOne({
+              BorrowedBook.findOne({
                 where: {
                   user_id: req.params.userId,
                 },
               })
-                .then(() => {
-                  if (!borrow) {
+                .then((foundborrow) => {
+                  if (!foundborrow) {
                     res.status(400).send({ message: 'This user has no request to borrow book' });
                   } else {
                     // To check if any request has been made on a book
-                    borrow.findOne({
+                    BorrowedBook.findOne({
                       where: {
                         book_id: req.params.bookId,
                       },
                     })
-                      .then(() => {
-                        if (!borrow) {
+                      .then((foundBook) => {
+                        if (!foundBook) {
                           res.status(400).send({ message: 'No request on this book' });
                         } else {
                           // To check if a user has requested for the specific book
-                          borrow.findOne({
+                          BorrowedBook.findOne({
                             where: {
                               book_id: req.params.bookId,
                               user_id: req.params.userId,
                             },
                           })
-                            .then(() => {
-                              if (!borrow) {
+                            .then((founduserborrow) => {
+                              if (!founduserborrow) {
                                 res.status(400).send({ status: false, message: 'This user has not requested for this particular book' });
                               } else {
                                 // To check if the status of a book whether its available or not
-                                if (book.bookStatus !== 'unavailable') {
-                                  return res.status(200).json({ message: 'Approved to borrow', bookName: book.bookName, bookId: book.id });
+                                if (Book.bookStatus !== 'unavailable') {
+                                  return res.status(200).json({ message: 'Approved to borrow', bookName: Book.bookName, bookId: Book.id });
                                 }
                                 return res.status(400).json({ message: 'Book currently unavailable' });
                               }
@@ -201,42 +185,33 @@ exports.approveBorrowBook = (req, res) => {
 
 
 exports.acceptReturnedBook = (req, res) => {
-  // const userId = req.decoded.user.id;
-  const name = req.decoded.user.role;
-
-  // To restrict users to access the endpoint except the admin
-  if (name !== 'admin') {
-    res.status(400).send({ status: false, message: 'Unauthorised' });
-  }
-
-  // To check if the user is existing
-  user.findOne({
+  User.findOne({
     where: {
       id: req.params.userId,
     },
   })
-    .then(() => {
-      if (!user) {
+    .then((founduser) => {
+      if (!founduser) {
         res.status(400).send({ status: false, message: 'user not found' });
       } else {
         // To check if the book is existing
-        book.findOne({
+        Book.findOne({
           where: {
             id: req.params.bookId,
           },
         })
-          .then(() => {
-            if (!book) {
+          .then((foundbook) => {
+            if (!foundbook) {
               res.status(400).send({ status: false, message: 'book not found' });
             } else {
-              returnedBook.findOne({
+              ReturnBook.findOne({
                 where: {
                   user_id: req.params.userId,
                   book_id: req.params.bookId
                 }
               })
-                .then(() => {
-                  if (returnedBook) {
+                .then((Returned) => {
+                  if (Returned) {
                     res.status(200).send({ message: 'Returned book accepted' });
                   } else {
                     res.status(400).send({ message: 'This book has not been returned' });

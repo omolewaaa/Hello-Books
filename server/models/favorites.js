@@ -1,22 +1,22 @@
 
 
 module.exports = (sequelize, DataTypes) => {
-  const favorites = sequelize.define('favorites', {
+  const Favorites = sequelize.define('Favorites', {
     user_id: DataTypes.INTEGER,
     book_id: DataTypes.INTEGER
   });
 
-  favorites.associate = (models) => {
-    favorites.belongsTo(models.user, {
+  Favorites.associate = (models) => {
+    Favorites.belongsTo(models.User, {
       foreignKey: 'user_id',
       onDelete: 'CASCADE',
       as: 'user'
     });
-    favorites.belongsTo(models.book, {
+    Favorites.belongsTo(models.Book, {
       foreignKey: 'book_id',
       onDelete: 'CASCADE',
       as: 'book'
     });
   };
-  return favorites;
+  return Favorites;
 };

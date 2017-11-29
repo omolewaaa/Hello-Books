@@ -3,43 +3,43 @@
 import models from '../models';
 
 const {
-  book, vote
+  Book, Vote
 } = models;
 
 
 exports.create = (req, res) => {
-  const userId = req.decoded.user.id;
+  const userId = req.decoded.foundUser.id;
 
 
   // To check the existence of a book
-  book.findOne({
+  Book.findOne({
     where: {
       id: req.params.bookId,
     },
   })
-    .then(() => {
+    .then((book) => {
       if (!book) {
         res.status(400).send({ status: false, message: 'book not found' });
       } else {
-        vote.findOne({
+        Vote.findOne({
           where: {
             user_id: userId,
             book_id: req.params.bookId,
           }
         })
-          .then(() => {
+          .then((vote) => {
             if (vote) {
               if (req.body.voteType === 'upVotes' || req.body.voteType === 'downVotes') {
                 if (vote.voteType === req.body.voteType) {
                   res.status(400).send({ message: `You have already  ${req.body.voteType} this book` });
                 } else {
                   vote.update({ voteType: req.body.voteType })
-                    .then(() => {
+                    .then((vote) => {
                       if (req.body.voteType === 'upVotes') {
                         book.increment('upvotes');
                         book.decrement('downvotes');
 
-                        res.status(200).send({ message: 'You have upvoted successfuly' });
+                        res.status(200).send({ message: 'You have upvoted successfuly',Vote });
                       } else if (req.body.voteType === 'downVotes') {
                         book.increment('downvotes');
                         book.decrement('upvotes');
@@ -51,12 +51,12 @@ exports.create = (req, res) => {
                 return res.status(400).send({ message: 'You can either upvote or downvote' });
               }
             } else if (req.body.voteType === 'upVotes' || req.body.voteType === 'downVotes') {
-              vote.create({
+              Vote.create({
                 book_id: req.params.bookId,
                 user_id: userId,
                 voteType: req.body.voteType
               })
-                .then(() => {
+                .then((Vote) => {
                   if (req.body.voteType === 'upVotes') {
                     book.increment('upvotes');
                     res.status(200).send({ message: 'You have upvoted successfuly', data: vote });

@@ -1,24 +1,24 @@
 
 
 module.exports = (sequelize, DataTypes) => {
-  const review = sequelize.define('review', {
+  const Review = sequelize.define('Review', {
     user_id: DataTypes.INTEGER,
     book_id: DataTypes.INTEGER,
     review: DataTypes.TEXT
   });
 
-  review.associate = (models) => {
-    review.belongsTo(models.user, {
+  Review.associate = (models) => {
+    Review.belongsTo(models.User, {
       foreignKey: 'user_id',
       onDelete: 'CASCADE',
       as: 'user'
     });
-    review.belongsTo(models.book, {
+    Review.belongsTo(models.Book, {
       foreignKey: 'book_id',
       onDelete: 'CASCADE',
       as: 'book'
     });
   };
 
-  return review;
+  return Review;
 };

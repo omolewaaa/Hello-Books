@@ -1,7 +1,7 @@
 
 
 module.exports = (sequelize, DataTypes) => {
-  const borrowedBook = sequelize.define('borrowedBook', {
+  const BorrowedBook = sequelize.define('BorrowedBook', {
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -12,18 +12,18 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
-  borrowedBook.associate = (models) => {
-    borrowedBook.belongsTo(models.book, {
+  BorrowedBook.associate = (models) => {
+    BorrowedBook.belongsTo(models.Book, {
       foreignKey: 'book_id',
       onDelete: 'CASCADE',
       as: 'book'
     });
-    borrowedBook.belongsTo(models.user, {
+    BorrowedBook.belongsTo(models.User, {
       foreignKey: 'user_id',
       onDelete: 'CASCADE',
       as: 'users'
     });
   };
 
-  return borrowedBook;
+  return BorrowedBook;
 };

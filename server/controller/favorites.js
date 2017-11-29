@@ -3,45 +3,45 @@
 import models from '../models';
 
 const {
-  book, favorites,
+  Book, Favorites,
 } = models;
 
 
 // Endpoints to make a book as favorites
 exports.create = (req, res) => {
-  const userId = req.decoded.user.id;
+  const userId = req.decoded.foundUser.id;
   const
     {
       username
-    } = req.decoded.user.username;
+    } = req.decoded.foundUser.username;
 
-  book.findOne({
+  Book.findOne({
     where: {
       id: req.params.bookId,
     },
   })
   // To confirm the existence of a book inside the database
-    .then(() => {
-      if (!book) {
+    .then((Book) => {
+      if (!Book) {
         res.status(400).send({ status: false, message: 'book not found' });
       } else {
         // Code section to allow a user mark a book as favorite once
-        favorites.findOne({
+        Favorites.findOne({
           where: {
             user_id: userId,
             book_id: req.params.bookId,
           },
         })
-          .then(() => {
+          .then((favorites) => {
             if (favorites) {
               res.status(400).send({ status: false, message: 'You have earlier added this book to your favorites books' });
             } else {
-              favorites.create({
+              Favorites.create({
                 book_id: req.params.bookId,
                 user_id: userId,
               })
-                .then(() => {
-                  res.status(200).json({ message: 'Book added as favorite', bookName: book.bookName, user: username });
+                .then((favorite) => {
+                  res.status(200).json({ message: 'Book added as favorite', bookName: Book.bookName, user: username });
                 })
                 .catch(error => res.status(400).send(error));
             }
@@ -53,14 +53,14 @@ exports.create = (req, res) => {
 
 // Endpoint to get user's favorites books
 exports.getFavorites = (req, res) => {
-  const userId = req.decoded.user.id;
-  favorites.findAll({
+  const userId = req.decoded.foundUser.id;
+  Favorites.findAll({
     where: {
       user_id: userId,
 
     },
   })
-    .then(() => {
+    .then((favorites) => {
       if (favorites) {
         res.status(200).send({ message: 'favorite books', data: favorites });
       }

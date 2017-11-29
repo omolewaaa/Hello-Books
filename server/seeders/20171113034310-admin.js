@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.bulkInsert('users', [{
+  up: (queryInterface, Sequelize) => queryInterface.bulkInsert('Users', [{
     username: 'John',
     email: 'johnDoe@gmail.com',
     role: 'admin',
