@@ -31,7 +31,7 @@ const swaggerSpec = swaggerJSDoc(options);
 
 // const db = require('../server/models/index');
 
-if ('NODE_ENV' !== 'test') {
+if (process.env.NODE_ENV !== 'test') {
 // Log requests to the console.
   app.use(logger('dev'));
 }
