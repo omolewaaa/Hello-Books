@@ -4,56 +4,58 @@ import models from '../models';
 
 const
   {
-    book, borrowedBook, returnBook,
+    Book, BorrowedBook, ReturnBook,
   } = models;
 
 
 // Endpoint to borrow a book
 exports.create = (req, res) => {
-  const userId = req.decoded.user.id;
+  const userId = req.decoded.foundUser.id;
   const
     {
       username
-    } = req.decoded.user.username;
+    } = req.decoded.foundUser.username;
 
 
   // To check the existence of a book
-  book.findOne({
+  Book.findOne({
     where: {
       id: req.params.bookId,
     },
   })
-    .then(() => {
+    .then((book) => {
       if (!book) {
         res.status(400).send({ status: false, message: 'book not found' });
       } else {
         // To check if a user who borrowed a particular book has returned to borrow again
-        borrowedBook.findOne({
+        BorrowedBook.findOne({
           where: {
             user_id: userId,
             book_id: req.params.bookId,
             // returnedStatus : false,
           },
         })
-          .then(() => {
+          .then((borrowedBook) => {
             //  if (borrowbook){
-            returnBook.findOne({
+            ReturnBook.findOne({
               where: {
                 user_id: userId,
                 book_id: req.params.bookId,
               },
             })
-              .then(() => {
+              .then((returnedBook) => {
                 // if((bookReturn)){
-                if (borrowedBook && (!returnBook)) {
+                if (borrowedBook && (!returnedBook)) {
                   res.status(400).send({ status: false, message: 'You must return this book before you can borrow it again' });
                 } else if (book.bookStatus !== 'unavailable') {
-                  borrowedBook.create({
+                  BorrowedBook.create({
                     book_id: req.params.bookId,
                     user_id: userId,
                   })
-                    .then(() => {
-                      res.status(200).json({ message: 'Enjoy the book', bookName: book.bookName, borrower: username });
+                    .then((borrowedBook) => {
+                      res.status(200).json({
+                        message: 'Enjoy the book', borrowedBook, bookName: Book.bookName, borrower: username
+                      });
                     })
                     .catch(error => res.status(400).send(error));
                 } else {
@@ -71,37 +73,37 @@ exports.create = (req, res) => {
 
 // Endpoint for user to return book
 exports.returnbook = (req, res) => {
-  const userId = req.decoded.user.id;
+  const userId = req.decoded.foundUser.id;
   const
     {
       username
-    } = req.decoded.user.username;
-  book.findOne({
+    } = req.decoded.foundUser.username;
+  Book.findOne({
     where: {
       id: req.params.bookId,
     },
   })
-    .then(() => {
+    .then((book) => {
       if (!book) {
         res.status(400).send({ status: false, message: 'book not found' });
       } else {
         // To check if a user have actually borrowed the book to be returned
-        borrowedBook.findOne({
+        BorrowedBook.findOne({
           where: {
             user_id: userId,
             book_id: req.params.bookId,
 
           },
         })
-          .then(() => {
+          .then((borrowedBook) => {
             if (!borrowedBook) {
               res.status(400).send({ status: false, message: 'You have not borrowed this book' });
             } else {
-              returnBook.create({
+              ReturnBook.create({
                 user_id: userId,
                 book_id: req.params.bookId
               })
-                .then(() => {
+                .then((returnedBook) => {
                   res.status(200).json({ message: 'Thanks for the return', bookName: book.bookName, borrower: username });
                 })
                 .catch(error => res.status(400).send(error));

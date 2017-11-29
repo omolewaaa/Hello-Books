@@ -1,7 +1,7 @@
 const usersController = require('../controller/user');
 const bookController = require('../controller/book');
 const verifyToken = require('../middleware/middleware');
-const verify = require('../middleware/admin');
+const verify = require('../middleware/adminMiddleware');
 const borrowController = require('../controller/borrow');
 const reviewController = require('../controller/review');
 const favoritesController = require('../controller/favorites');
@@ -132,7 +132,7 @@ module.exports = (app) => {
  *       200:
  *         description: Book added successfully
  */
-  app.post('/api/v1/book/admin', verify, bookController.create);
+  app.post('/api/v1/book/admin', verifyToken, verify, bookController.create);
 
   /**
  * @swagger
@@ -152,7 +152,7 @@ module.exports = (app) => {
  *       200:
  *         description: Successfully modified
  */
-  app.put('/api/v1/book/admin/:bookId', verifyToken, bookController.modify);
+  app.put('/api/v1/book/admin/:bookId', verifyToken, verify, bookController.modify);
 
   /**
  * @swagger
@@ -174,7 +174,7 @@ module.exports = (app) => {
  *       200:
  *         description: Book Approved
  */
-  app.put('/api/v1/book/:userId/borrow/:bookId', verifyToken, bookController.approveBorrowBook);
+  app.put('/api/v1/book/:userId/borrow/:bookId', verifyToken, verify, bookController.approveBorrowBook);
 
   /**
  * @swagger
@@ -196,7 +196,7 @@ module.exports = (app) => {
  *       200:
  *         description: Returned book accepted
  */
-  app.put('/api/v1/book/:userId/return/:bookId', verifyToken, bookController.acceptReturnedBook);
+  app.put('/api/v1/book/:userId/return/:bookId', verifyToken, verify, bookController.acceptReturnedBook);
 
 
   /**

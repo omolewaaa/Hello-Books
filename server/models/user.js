@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const user = sequelize.define('user', {
+  const User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -29,24 +29,24 @@ module.exports = (sequelize, DataTypes) => {
 
     },
   });
-  user.associate = (models) => {
-    user.hasMany(models.borrowedBook, {
+  User.associate = (models) => {
+    User.hasMany(models.BorrowedBook, {
       foreignKey: 'user_id',
     });
-    user.hasMany(models.returnBook, {
+    User.hasMany(models.ReturnBook, {
       foreignKey: 'user_id',
     });
-    user.hasMany(models.favorites, {
+    User.hasMany(models.Favorites, {
       foreignKey: 'user_id',
     });
-    user.hasMany(models.review, {
+    User.hasMany(models.Review, {
       foreignKey: 'user_id',
       as: 'review'
     });
-    user.hasMany(models.vote, {
+    User.hasMany(models.Vote, {
       foreignKey: 'user_id',
     });
   };
-  return user;
+  return User;
 };
 

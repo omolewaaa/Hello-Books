@@ -1,24 +1,24 @@
 
 
 module.exports = (sequelize, DataTypes) => {
-  const vote = sequelize.define('vote', {
+  const Vote = sequelize.define('Vote', {
     user_id: DataTypes.INTEGER,
     book_id: DataTypes.INTEGER,
     voteType: DataTypes.STRING
   // },
   });
-  vote.associate = (models) => {
-    vote.belongsTo(models.user, {
+  Vote.associate = (models) => {
+    Vote.belongsTo(models.User, {
       foreignKey: 'user_id',
       onDelete: 'CASCADE',
       as: 'user'
     });
-    vote.belongsTo(models.book, {
+    Vote.belongsTo(models.Book, {
       foreignKey: 'book_id',
       onDelete: 'CASCADE',
       as: 'book'
     });
   };
-  return vote;
+  return Vote;
 };
 
