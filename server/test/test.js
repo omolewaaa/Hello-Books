@@ -234,7 +234,7 @@ describe('Book', () => {
         // let token = jwt.sign({ user }, omolewa, { expiresIn: '60 minutes' });
         // expect(res.body.token).to.be.a('string');
         // res.should.have.send(token);
-        done(error);
+        done();
       });
   });
 
@@ -302,6 +302,68 @@ describe('Book', () => {
         res.should.have.status(400);
         done();
       });
+  });
+
+  it('it should not post a book when not an admin', (done) => {
+    const item = {
+      bookName: 'The Lord of the Rings',
+      Author: 'J.R.R. Tolkien',
+      bookStatus: 'available',
+      Details: 'A great book to read',
+      upvotes: 0,
+      downvotes: 0,
+
+    };
+    chai.request(app)
+      .post('/api/v1/book/admin')
+      .send(item)
+      .end((err, res) => {
+        res.should.have.status(403);
+        done();
+      });
+  });
+
+
+  it('it should not put a book when book not found ', (done) => {
+    const item = {
+      bookId: 5,
+      bookName: 'The Lord of the Rings',
+      Author: 'J.R.R. Tolkien',
+      bookStatus: 'available',
+      Details: 'A great book to read',
+    };
+
+    chai.request(app)
+      .put('/api/v1/book/:bookId')
+      .send({ item })
+      .end((err, res) => {
+        res.should.have.status(404);
+        done();
+      });
+  });
+
+  it('it should GET all the books', (done) => {
+    chai.request(app)
+      .get('/api/v1/books')
+      .end((err, res) => {
+        res.should.have.status(200);
+        // res.body.should.be.a('array');
+        // res.body.length.should.be.eql(0);
+        done();
+      });
+  });
+
+
+  it('it should post borrow if token not provided', (done) => {
+    chai.request(app)
+      .post('/api/v1/users/borrow/:bookId')
+      .send()
+
+      .end((err, res) => {
+        res.should.have.status(403);
+        done();
+      });
+    // });
   });
 
   // it('it should login a user when inputs are right', (done) => {
@@ -425,16 +487,13 @@ describe('Book', () => {
     // });
   });
 
-  it('it should post if status not available/anavailable', (done) => {
+
+  it('it should put if not token provided', (done) => {
     const bookData = {
-      // user_id: 1,
-      bookName: 'fish',
-      Author: 'james',
-      bookStatus: 'availa',
-      Details: 'fanstastic book',
+      bookId: 1,
     };
     chai.request(app)
-      .post('/api/v1/book/admin')
+      .put('/api/v1/book/admin/:bookId')
       .send(bookData)
       .set('Accept', 'application/json')
       // .set('Authorization', token)
@@ -445,6 +504,42 @@ describe('Book', () => {
     // });
   });
 
+  it('it should approve if not token provided', (done) => {
+    const bookData = {
+      // user_id: 1,
+      bookName: 'fish',
+      Author: 'james',
+      bookStatus: 'availa',
+      Details: 'fanstastic book',
+    };
+    chai.request(app)
+      .put('/api/v1/book/:userId/borrow/:bookId')
+      .send(bookData)
+      // .set('Accept', 'application/json')
+      // .set('Authorization', token)
+      .end((err, res) => {
+        res.should.have.status(403);
+        done();
+      });
+    // });
+  });
+
+  it('it should approve if not token provided', (done) => {
+    const bookData = {
+      user_id: 1,
+      bookId: 2,
+    };
+    chai.request(app)
+      .put('/api/v1/book/:userId/return/:bookId')
+      .send(bookData)
+      // .set('Accept', 'application/json')
+      // .set('Authorization', token)
+      .end((err, res) => {
+        res.should.have.status(403);
+        done();
+      });
+    // });
+  });
 
   after(() => {
     process.exit(0);
