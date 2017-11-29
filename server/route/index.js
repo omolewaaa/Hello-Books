@@ -1,12 +1,14 @@
-const usersController = require('../controller/user');
-const bookController = require('../controller/book');
+
+import UserController from '../controller/user';
+import BookController from '../controller/book';
+import BorrowController from '../controller/borrow';
+import ReviewController from '../controller/review';
+import FavoriteController from '../controller/favorites';
+import VoteController from '../controller/vote';
+
+
 const verifyToken = require('../middleware/middleware');
 const verify = require('../middleware/adminMiddleware');
-const borrowController = require('../controller/borrow');
-const reviewController = require('../controller/review');
-const favoritesController = require('../controller/favorites');
-const votesController = require('../controller/vote');
-
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
@@ -49,7 +51,7 @@ module.exports = (app) => {
  *       200:
  *         description: You are registered successfully
  */
-  app.post('/api/v1/users/signup', usersController.create);
+  app.post('/api/v1/users/signup', UserController.create);
 
   /**
  * @swagger
@@ -71,7 +73,7 @@ module.exports = (app) => {
  *       200:
  *         description: Logged in successfully
  */
-  app.post('/api/v1/users/signin', usersController.login);
+  app.post('/api/v1/users/signin', UserController.login);
 
   /**
  * @swagger
@@ -93,7 +95,7 @@ module.exports = (app) => {
  *       200:
  *         description: You have successfully logged out
  */
-  app.post('/api/v1/users/signout', verifyToken, usersController.logout);
+  app.post('/api/v1/users/signout', verifyToken, UserController.logout);
 
   /**
  * @swagger
@@ -132,7 +134,7 @@ module.exports = (app) => {
  *       200:
  *         description: Book added successfully
  */
-  app.post('/api/v1/book/admin', verifyToken, verify, bookController.create);
+  app.post('/api/v1/book/admin', verifyToken, verify, BookController.create);
 
   /**
  * @swagger
@@ -152,7 +154,7 @@ module.exports = (app) => {
  *       200:
  *         description: Successfully modified
  */
-  app.put('/api/v1/book/admin/:bookId', verifyToken, verify, bookController.modify);
+  app.put('/api/v1/book/admin/:bookId', verifyToken, verify, BookController.modify);
 
   /**
  * @swagger
@@ -174,7 +176,7 @@ module.exports = (app) => {
  *       200:
  *         description: Book Approved
  */
-  app.put('/api/v1/book/:userId/borrow/:bookId', verifyToken, verify, bookController.approveBorrowBook);
+  app.put('/api/v1/book/:userId/borrow/:bookId', verifyToken, verify, BookController.approveBorrowBook);
 
   /**
  * @swagger
@@ -196,7 +198,7 @@ module.exports = (app) => {
  *       200:
  *         description: Returned book accepted
  */
-  app.put('/api/v1/book/:userId/return/:bookId', verifyToken, verify, bookController.acceptReturnedBook);
+  app.put('/api/v1/book/:userId/return/:bookId', verifyToken, verify, BookController.acceptReturnedBook);
 
 
   /**
@@ -214,7 +216,7 @@ module.exports = (app) => {
  *         schema:
  *           $ref: '#/definitions/book'
  */
-  app.get('/api/v1/books', bookController.getAllBooks);
+  app.get('/api/v1/books', BookController.getAllBooks);
 
   /**
  * @swagger
@@ -236,7 +238,7 @@ module.exports = (app) => {
  *       200:
  *         description: Enjoy the book
  */
-  app.post('/api/v1/users/borrow/:bookId', verifyToken, borrowController.create);
+  app.post('/api/v1/users/borrow/:bookId', verifyToken, BorrowController.create);
 
   /**
  * @swagger
@@ -258,7 +260,7 @@ module.exports = (app) => {
  *       200:
  *         description: Book successfully returned
  */
-  app.post('/api/v1/users/return/:bookId', verifyToken, borrowController.returnbook);
+  app.post('/api/v1/users/return/:bookId', verifyToken, BorrowController.returnbook);
 
   /**
  * @swagger
@@ -280,7 +282,7 @@ module.exports = (app) => {
  *       200:
  *         description: Thanks for your review
  */
-  app.post('/api/v1/users/review/:bookId', verifyToken, reviewController.create);
+  app.post('/api/v1/users/review/:bookId', verifyToken, ReviewController.create);
 
   /**
  * @swagger
@@ -302,7 +304,7 @@ module.exports = (app) => {
  *       200:
  *         description: Marked as favorite
  */
-  app.post('/api/v1/users/:bookId/favbook', verifyToken, favoritesController.create);
+  app.post('/api/v1/users/:bookId/favbook', verifyToken, FavoriteController.create);
 
   /**
  * @swagger
@@ -325,6 +327,6 @@ module.exports = (app) => {
  *         schema:
  *           $ref: '#/definitions/user'
  */
-  app.get('/api/v1/users/favorites', verifyToken, favoritesController.getFavorites);
-  app.post('/api/v1/vote/:bookId', verifyToken, votesController.create);
+  app.get('/api/v1/users/favorites', verifyToken, FavoriteController.getFavorites);
+  app.post('/api/v1/vote/:bookId', verifyToken, VoteController.create);
 };
