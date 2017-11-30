@@ -12,7 +12,7 @@ const verify = require('../middleware/adminMiddleware');
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
-    message: 'welcome to postit application.',
+    message: 'welcome to Hello-Books application.',
   }));
 
 
