@@ -2,12 +2,11 @@
 // let Book = require('../models/book');
 
 import chai from 'chai';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-
-const chaiHttp = require('chai-http');
-const app = require('../app');
-const user = require('../models/user')
+// import bcrypt from 'bcryptjs';
+// import jwt from 'jsonwebtoken';
+import chaiHttp from 'chai-http';
+import app from '../app';
+// import user from '../models/user';
 
 
 // const should = chai.should();
@@ -58,7 +57,6 @@ describe('users', () => {
       // password: "omo"
 
 
-
     };
     chai.request(app)
       .post('/api/v1/users/signup')
@@ -75,8 +73,6 @@ describe('users', () => {
       email: 'oooooooooo@gmail.com',
 
       password: 'omo',
-
-      
 
 
     };
@@ -190,7 +186,6 @@ describe('users', () => {
       // email: "iret
       password: 'oooooooooo',
 
-      
 
     };
     chai.request(app)
@@ -375,10 +370,9 @@ describe('users', () => {
 
       .end((err, res) => {
         res.should.have.status(403);
-
-    });
+      });
   });
-  
+
   after(() => {
     process.exit(0);
   });

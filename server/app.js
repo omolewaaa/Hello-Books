@@ -2,6 +2,7 @@ import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
+import route from '../server/route';
 
 // Set up the express app
 const app = express();
@@ -46,7 +47,7 @@ app.get('/swagger.json', (req, res) => {
 });
 
 // Setup a default catch-all route that sends back a welcome message in JSON format.
-require('../server/route')(app);
+route(app);
 
 app.get('*', (req, res) => res.status(200).send({ message: 'Welcome to Hello-Books Application.' }));
 
