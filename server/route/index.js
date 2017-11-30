@@ -5,14 +5,12 @@ import BorrowController from '../controller/borrow';
 import ReviewController from '../controller/review';
 import FavoriteController from '../controller/favorites';
 import VoteController from '../controller/vote';
-
-
-const verifyToken = require('../middleware/middleware');
-const verify = require('../middleware/adminMiddleware');
+import verifyToken from '../middleware/middleware';
+import verify from '../middleware/adminMiddleware';
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
-    message: 'welcome to Hello-Books application.',
+    message: 'welcome to Hello-Book application.',
   }));
 
 
