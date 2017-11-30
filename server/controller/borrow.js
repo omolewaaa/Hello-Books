@@ -70,7 +70,7 @@ class BorrowController {
                       .then((borrowBook) => {
                         res.status(200).json({
                           message: 'Enjoy the book',
-                          borrowBook,
+                          // borrowBook,
                           bookName: Book.bookName,
                           borrower: username
                         });

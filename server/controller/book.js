@@ -55,13 +55,12 @@ class BookController {
               Author: req.body.Author,
               bookStatus: req.body.bookStatus,
               Details: req.body.Details,
-              user_id: userId
+              // user_id: req.decoded.foundUser
             })
-              .then((createbook) => {
+              .then((book) => {
                 res.status(200).send({
                   status: true,
                   message: 'Book registered Successfully',
-                  createbook,
                   bookId: book.id,
                   bookName: book.bookName,
                   Author: book.Author,
