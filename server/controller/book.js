@@ -49,7 +49,7 @@ class BookController {
           }
 
 
-          if (req.body.bookStatus === 'available' || req.body.bookStatus === 'unavailable') {
+          if (req.body.bookStatus === 'available') {
             Book.create({
               bookName: req.body.bookName,
               Author: req.body.Author,
@@ -72,7 +72,7 @@ class BookController {
               })
               .catch(error => res.status(400).send(error));
           } else {
-            return res.status(500).json({ status: false, message: 'books can either be available or unavailable' });
+            return res.status(500).json({ status: false, message: 'book status should be available' });
           }
         }
       });
