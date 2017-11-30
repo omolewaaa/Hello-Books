@@ -72,7 +72,7 @@ class BookController {
               })
               .catch(error => res.status(400).send(error));
           } else {
-            return res.status(500).json({ status: false, message: 'books can either be available or unavailable' });
+            return res.status(400).json({ status: false, message: 'book status should be available' });
           }
         }
       });
@@ -118,7 +118,7 @@ class BookController {
           if (req.body.bookStatus === 'available' || req.body.bookStatus === 'unavailable') {
             res.status(201).json({ message: 'book modified successfully', data: book });
           } else {
-            return res.status(500).json({ status: false, message: 'books can either be available or unavailable' });
+            return res.status(400).json({ status: false, message: 'books can either be available or unavailable' });
           }
         }
       });
