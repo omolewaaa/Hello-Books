@@ -157,11 +157,9 @@ class UserController {
  */
   static logout(req, res) {
     const userId = req.decoded.foundUser.id;
-    const {
-      username
-    } = req.decoded.User.username;
+    // const username = req.decoded.User.username;
 
-    return res.status(200).send({ message: 'You have successfully logged out', user_id: userId, username });
+    return res.status(200).send({ message: 'You have successfully logged out' });
   }
 }
 export default UserController;
