@@ -5,17 +5,24 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Author: {
+    author: {
       type: DataTypes.STRING,
       allowNull: false,
     },
 
-    bookStatus: {
-      type: DataTypes.STRING,
+    status: {
+      type: DataTypes.ENUM,
+      values: ['available', 'unavailable'],
+      defaultValue: 'available'
+      // allowNull: false,
+    },
+
+    quantity: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
 
-    Details: {
+    details: {
       type: DataTypes.TEXT,
       allowNull: false,
     },

@@ -33,46 +33,41 @@ class BookController {
       .then((book) => {
         if (book) {
           res.status(400).send({ status: false, message: 'This book has been added' });
+        } else if (!req.body.bookName) {
+          res.status(400).send('Please enter the name of the book');
+        } else if (!req.body.author) {
+          res.status(400).send("Please enter the author's name");
+        } else if (!req.body.quantity) {
+          res.status(400).send('Please enter the quantity of the book');
+        } else if (!req.body.details) {
+          res.status(400).send('Kindly give little details about the book');
+        } else
+
+        if (!validator.isAlpha(req.body.bookName)) {
+          res.status(400).send('Name of book should be letters');
+        } else if (!validator.isNumeric(req.body.quantity)) {
+          res.status(400).send('quantity of book should be number');
         } else {
-          if (!req.body.bookName) {
-            res.status(400).send('Please enter the name of the book');
-          } else if (!req.body.Author) {
-            res.status(400).send("Please enter the Author's name");
-          } else if (!req.body.bookStatus) {
-            res.status(400).send('Please the status of the book');
-          } else if (!req.body.Details) {
-            res.status(400).send('Kindly give little details about the book');
-          } else
-
-          if (!validator.isAlpha(req.body.bookName)) {
-            res.status(400).send('Name of book should be letters');
-          }
-
-
-          if (req.body.bookStatus === 'available') {
-            Book.create({
-              bookName: req.body.bookName,
-              Author: req.body.Author,
-              bookStatus: req.body.bookStatus,
-              Details: req.body.Details,
-              // user_id: req.decoded.foundUser
-            })
-              .then((book) => {
-                res.status(200).send({
-                  status: true,
-                  message: 'Book registered Successfully',
-                  bookId: book.id,
-                  bookName: book.bookName,
-                  Author: book.Author,
-                  bookStatus: book.bookStatus,
-                  Details: book.Details,
-                });
+          Book.create({
+            bookName: req.body.bookName,
+            author: req.body.author,
+            quantity: req.body.quantity,
+            details: req.body.details,
+            // user_id: req.decoded.foundUser
+          })
+            .then((book) => {
+              res.status(201).send({
+                status: true,
+                message: 'Book registered Successfully',
+                bookId: book.id,
+                bookName: book.bookName,
+                author: book.author,
+                quantity: book.quantity,
+                details: book.details,
+              });
               // }
-              })
-              .catch(error => res.status(400).send(error));
-          } else {
-            return res.status(400).json({ status: false, message: 'book status should be available' });
-          }
+            })
+            .catch(error => res.status(400).send(error));
         }
       });
   }
@@ -103,9 +98,9 @@ class BookController {
           book.update(
             {
               bookName: req.body.bookName,
-              Author: req.body.Author,
-              bookStatus: req.body.bookStatus,
-              Details: req.body.Details
+              author: req.body.author,
+              quantity: req.body.quantity,
+              details: req.body.details
             },
             {
               where: {
@@ -114,10 +109,10 @@ class BookController {
             }
           );
 
-          if (req.body.bookStatus === 'available' || req.body.bookStatus === 'unavailable') {
+          if (validator.isNumeric(req.body.quantity)) {
             res.status(201).json({ message: 'book modified successfully', data: book });
           } else {
-            return res.status(400).json({ status: false, message: 'books can either be available or unavailable' });
+            return res.status(400).json({ status: false, message: 'kindly check the input for quantity, it must be a number' });
           }
         }
       });
@@ -135,7 +130,6 @@ class BookController {
   static getAllBooks(req, res) {
     Book.findAll({
       order: [['upvotes', 'DESC']],
-      include: [{ all: true }]
     })
       .then(books => res.json(books));
   }
@@ -204,13 +198,18 @@ class BookController {
                               .then((founduserborrow) => {
                                 if (!founduserborrow) {
                                   res.status(400).send({ status: false, message: 'This user has not requested for this particular book' });
-                                } else {
+                                } else
                                 // To check if the status of a book whether its available or not
-                                  if (Book.bookStatus !== 'unavailable') {
-                                    return res.status(200).json({ message: 'Approved to borrow', bookName: Book.bookName, bookId: Book.id });
-                                  }
-                                  return res.status(400).json({ message: 'Book currently unavailable' });
+                                if (founduserborrow.borrowStatus === 'pending') {
+                                  founduserborrow.update({
+                                    borrowStatus: 'accepted',
+                                  });
+                                  // }
+                                  res.status(200).json({ message: 'Approved to borrow', bookName: Book.bookName, bookId: Book.id });
+                                } else {
+                                  res.status(400).json({ message: 'Book currently unavailable' });
                                 }
+                              //  }
                               });
                           }
                         });
@@ -258,7 +257,10 @@ class BookController {
                   }
                 })
                   .then((Returned) => {
-                    if (Returned) {
+                    if (Returned.returnStatus === 'pending') {
+                      Returned.update({
+                        returnStatus: 'accepted',
+                      });
                       res.status(200).send({ message: 'Returned book accepted' });
                     } else {
                       res.status(400).send({ message: 'This book has not been returned' });

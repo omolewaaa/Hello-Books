@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
 
   // To restrict users to access the endpoint except the admin
   if (req.decoded.foundUser.role !== 'admin') {
-    return res.status(400).send({ status: false, message: 'Unauthorised' });
+    return res.status(403).send({ status: false, message: 'Unauthorised' });
   }
   next();
 };

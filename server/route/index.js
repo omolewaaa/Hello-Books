@@ -132,7 +132,7 @@ module.exports = (app) => {
  *       200:
  *         description: Book added successfully
  */
-  app.post('/api/v1/book/admin', verifyUser, verifyAdmin, BookController.create);
+  app.post('/api/v1/book', verifyUser, verifyAdmin, BookController.create);
 
   /**
  * @swagger
@@ -152,7 +152,7 @@ module.exports = (app) => {
  *       200:
  *         description: Successfully modified
  */
-  app.put('/api/v1/book/admin/:bookId', verifyUser, verifyAdmin, BookController.modify);
+  app.put('/api/v1/book/:bookId', verifyUser, verifyAdmin, BookController.modify);
 
   /**
  * @swagger
