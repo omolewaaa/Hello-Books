@@ -45,31 +45,30 @@ class VoteController {
             .then((vote) => {
               if (vote) {
                 if (req.body.voteType === 'upVotes' || req.body.voteType === 'downVotes') {
-                  if (vote.voteType === req.body.voteType) {
-                    res.status(400).send({ message: `You have already  ${req.body.voteType} this book` });
-                  } else {
-                    vote.update({ voteType: req.body.voteType })
-                      .then((votes) => {
-                        if (req.body.voteType === 'upVotes') {
-                          book.increment('upvotes');
-                          book.decrement('downvotes');
+                  // if (vote.voteType === req.body.voteType) {
+                  if (vote.voteType === 'upVotes') {
+                    book.decrement('upvotes');
+                    book.increment('downvotes');
+                    vote.update({ voteType: 'downVotes' });
+                    // .then((votes) => {
 
-                          res.status(200).send({
-                            message: 'You have upvoted successfuly',
-                            Vote,
-                            votes
-                          });
-                        } else if (req.body.voteType === 'downVotes') {
-                          book.increment('downvotes');
-                          book.decrement('upvotes');
-                          res.status(200).send({ message: 'You have downvoted this book successfuly' });
-                        }
-                      });
+                    // });
+                    // }
+                    res.status(200).send({ message: 'book downvoted successfully' });
+                  } else if (vote.voteType === 'downVotes') {
+                    book.increment('upvotes');
+                    book.decrement('downvotes');
+                    vote.update({ voteType: 'upVotes' });
+          
+                    res.status(200).send({ message: 'book upvoted successfully' });
                   }
                 } else {
                   return res.status(400).send({ message: 'You can either upvote or downvote' });
                 }
-              } else if (req.body.voteType === 'upVotes' || req.body.voteType === 'downVotes') {
+                // }
+                // })
+                //
+              } else {
                 Vote.create({
                   book_id: req.params.bookId,
                   user_id: userId,
@@ -78,6 +77,7 @@ class VoteController {
                   .then((votetype) => {
                     if (req.body.voteType === 'upVotes') {
                       book.increment('upvotes');
+                      // book.decrement('downvotes');
                       res.status(200).send({
                         message: 'You have upvoted successfuly',
                         data: vote,
@@ -85,12 +85,15 @@ class VoteController {
                       });
                     } else if (req.body.voteType === 'downVotes') {
                       book.increment('downvotes');
+                      // book.decrement('upvotes');
                       res.status(200).send({ message: 'You have downvoted this book successfuly', data: vote });
                     }
                   })
                   .catch(error => res.status(400).send(error));
-              } else {
-                return res.status(400).send({ message: 'You can either upvote or downvote' });
+              // }
+              // else {
+              //  return res.status(400).send({ message: 'You can either upvote or downvote' });
+              // }
               }
             });
         }
