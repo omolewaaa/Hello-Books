@@ -90,7 +90,7 @@ class FavoritesController {
     })
       .then((favorites) => {
         if (favorites) {
-          res.status(200).send({ message: 'favorite books', data: favorites });
+          res.status(200).send({ message: 'favorite books', favorite: favorites });
         }
       })
       .catch(error => res.status(400).send(error));

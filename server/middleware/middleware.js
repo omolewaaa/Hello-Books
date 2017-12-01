@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
   } else {
     return res.status(403).send({
       success: false,
-      message: 'No token provided.'
+      message: 'No token provided, kindly login/signup.'
     });
   }
 };

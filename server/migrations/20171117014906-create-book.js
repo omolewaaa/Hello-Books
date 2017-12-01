@@ -13,13 +13,17 @@ module.exports = {
     bookName: {
       type: Sequelize.STRING
     },
-    Author: {
+    quantity: {
+      type: Sequelize.INTEGER
+    },
+    author: {
       type: Sequelize.STRING
     },
-    bookStatus: {
-      type: Sequelize.STRING
+    status: {
+      type: Sequelize.ENUM,
+      values: ['available', 'unavailable']
     },
-    Details: {
+    details: {
       type: Sequelize.TEXT
     },
     upvotes: {

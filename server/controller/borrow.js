@@ -47,7 +47,7 @@ class BorrowController {
             where: {
               user_id: userId,
               book_id: req.params.bookId,
-            // returnedStatus : false,
+              borrowStatus: 'pending',
             },
           })
             .then((borrowedBook) => {
@@ -56,30 +56,35 @@ class BorrowController {
                 where: {
                   user_id: userId,
                   book_id: req.params.bookId,
+
                 },
               })
                 .then((returnedBook) => {
                 // if((bookReturn)){
-                  if (borrowedBook && (!returnedBook)) {
+                  if ((borrowedBook && borrowedBook.borrowStatus === 'pending')) {
                     res.status(400).send({ status: false, message: 'You must return this book before you can borrow it again' });
-                  } else if (book.bookStatus !== 'unavailable') {
+                  } else if ((borrowedBook && borrowedBook.borrowStatus === 'accepted') && (returnedBook && returnedBook.returnStatus !== 'accepted')) {
+                    res.status(400).send({ status: false, message: 'This book must be approved by the admin that is returned before you can borrow it again' });
+                  } else if (book.quantity !== 0) {
                     BorrowedBook.create({
                       book_id: req.params.bookId,
                       user_id: userId,
                     })
                       .then((borrowBook) => {
-                        res.status(200).json({
-                          message: 'Enjoy the book',
-                          // borrowBook,
-                          bookName: Book.bookName,
-                          borrower: username
-                        });
+                        if (borrowBook) {
+                          book.decrement('quantity');
+                          res.status(200).json({
+                            message: 'Request made successfully, please wait while admin approve your request',
+                            borrowBook,
+                            bookName: Book.bookName,
+                            borrower: username
+                          });
+                        }
                       })
                       .catch(error => res.status(400).send(error));
                   } else {
                     res.status(400).json({ message: 'This book is currently unavailable' });
                   }
-                // }
                 });
 
             // }
@@ -125,19 +130,35 @@ class BorrowController {
               if (!borrowedBook) {
                 res.status(400).send({ status: false, message: 'You have not borrowed this book' });
               } else {
-                ReturnBook.create({
-                  user_id: userId,
-                  book_id: req.params.bookId
+                ReturnBook.findOne({
+                  where: {
+                    user_id: userId,
+                    book_id: req.params.bookId,
+
+                  },
                 })
-                  .then((returnedBook) => {
-                    res.status(200).json({
-                      returnedBook,
-                      message: 'Thanks for the return',
-                      bookName: book.bookName,
-                      borrower: username
-                    });
-                  })
-                  .catch(error => res.status(400).send(error));
+                  .then((bookreturn) => {
+                    if (bookreturn && bookreturn.returnStatus === 'pending') {
+                      res.status(400).send({ status: false, message: 'You have earlier made this request and request waiting for admin approval' });
+                    } else {
+                      ReturnBook.create({
+                        user_id: userId,
+                        book_id: req.params.bookId
+                      })
+                        .then((returnedBook) => {
+                          if (returnedBook) {
+                            book.increment('quantity');
+                            res.status(200).json({
+                              returnedBook,
+                              message: 'Thanks for the return',
+                              bookName: book.bookName,
+                              borrower: username
+                            });
+                          }
+                        })
+                        .catch(error => res.status(400).send(error));
+                    }
+                  });
               }
             });
         }
