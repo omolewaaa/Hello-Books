@@ -78,7 +78,7 @@ class UserController {
                         expiresIn: '60 minutes'
                       }
                     );
-                    res.status(200).send({
+                    res.status(201).send({
                       status: true,
                       message: 'You are registered Successfully',
                       userId: foundUser.id,
@@ -137,7 +137,7 @@ class UserController {
                 }
               );
 
-              res.status(201).send({ message: 'logged in successfully', token });
+              res.status(200).send({ message: 'logged in successfully', token });
             } else {
               res.status(404).send({ message: 'confirm username or password' });
             }
