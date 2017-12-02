@@ -1,10 +1,16 @@
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="css/materialize.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">    
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.7.0/css/font-awesome.css">  
+  <link rel="stylesheet" type="text/css" href="styles/style.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
 <title>CATALOG</title>
 
 <style>
@@ -15,13 +21,35 @@ table, tr, td {
 tr, td {
     padding: 5px;
 }
+.nav {
+  background-color: black !important;
+}
     
 </style>
-<header style = 'padding: 1em;color: white; background-color: black; text-align: center;'>
-    <marquee>Welcome to Hello-Books, We serve you exciting and recent books to enlighten you in all areas of life, At one click, you get the book of your choice</marquee>
-    </header>
 </head>
 <body>
+  <header>
+    <!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="review.html">profile</a></li>
+  <li class="divider"></li>
+  <li><a href="#!"><i class="material-icons ">lock</i>sign out</a></li>
+  
+</ul>
+<nav class="black">
+    <div class="navbar-fixed">
+  <div class="nav-wrapper">
+    <a href="#!" class="brand-logo">Hello-Books</a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="index.html">welcome page</a></li>
+      
+      <!-- Dropdown Trigger -->
+      <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Omolewa<i class="material-icons right">arrow_drop_down</i></a></li>
+    </ul>
+  </div>
+  </div>>
+</nav>
+  </header>
 
     <!-- side navigation bar !-->
       <ul id="nav-mobile" class="side-nav fixed">
@@ -46,14 +74,13 @@ tr, td {
       </ul>
         <br>
         <br>
-        
+        <br>
+        <div class="widget-header">
           <h6 style = 'color: red; text-align: left;'><i>Admin section </i><h6>
           <form method = "post" entype = "multipart/form-data">
           Add Book: <input type = "file" name = "imgfile"><br>
           <input type = "submit" value = "upload">
-          <h6 style="text-align:left;"><a href = "review.html">Book Detail</a></h6>
-
-          <li style = 'text-align: left;'><a href="signin.html">Sign Out</a></li>
+        </div>
       </ul>
 
           <div class="container" style ='position:fixed; top:15%; left:30%; width:50%;'>
