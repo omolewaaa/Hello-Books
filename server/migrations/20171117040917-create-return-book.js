@@ -14,10 +14,15 @@ module.exports = {
     book_id: {
       type: Sequelize.INTEGER
     },
+    returnStatus: {
+      type: Sequelize.ENUM,
+      values: ['pending', 'accepted'],
+      defaultValue: 'pending'
     /* returnedStatus: {
         type: Sequelize.BOOLEAN
       },
       */
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE

@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs';
+const bcrypt = require('bcryptjs');
 
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
