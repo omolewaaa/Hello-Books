@@ -1,4 +1,3 @@
-
 import jwt from 'jsonwebtoken';
 // import models from '../models';
 
@@ -15,4 +14,3 @@ module.exports = (req, res, next) => {
   }
   next();
 };
-
