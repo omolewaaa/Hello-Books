@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+
+    returnStatus: {
+      // allowNull: false,
+      type: DataTypes.ENUM,
+      values: ['pending', 'accepted'],
+      defaultValue: 'pending'
+
+    },
   });
   ReturnBook.associate = (models) => {
     ReturnBook.belongsTo(models.User, {

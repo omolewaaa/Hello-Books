@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+
+    borrowStatus: {
+      // allowNull: true,
+      type: DataTypes.ENUM,
+      values: ['pending', 'accepted'],
+      defaultValue: 'pending'
+
+    },
   });
   BorrowedBook.associate = (models) => {
     BorrowedBook.belongsTo(models.Book, {
